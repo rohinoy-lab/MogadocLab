@@ -165,8 +165,13 @@
   display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;
   padding:10px 12px 12px; border-top:1px solid var(--border); background:rgba(14,22,31,0.82);
 }
-#atomInspectorPanel.is-empty .aip-actions{ display:none; }
-#atomInspectorPanel.is-empty .aip-body{ padding:14px 14px 18px; }
+/* Empty state: hide only the selection-dependent actions; keep the
+   "Show all hidden atoms" button reachable since it doesn't need a
+   selection (and is exactly what the user needs after accidentally
+   hiding atoms with no easy way to undo). */
+#atomInspectorPanel.is-empty .aip-act-need-sel{ display:none; }
+#atomInspectorPanel.is-empty .aip-actions{ grid-template-columns:1fr; padding:8px 14px 12px; }
+#atomInspectorPanel.is-empty .aip-body{ padding:14px 14px 14px; }
 @media (max-width: 1100px){
   #atomInspectorPanel{ width:250px; }
 }

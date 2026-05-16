@@ -232,6 +232,8 @@ function setTheme(t){
   // Recompute light-bg flag — grid/plain/gradient bgs follow theme lightness.
   const bg = document.getElementById('canvasArea')?.getAttribute('data-bg') || 'grid';
   window._pubshotLightBg = isLightCanvasBg(bg, t);
+  // Invalidate the cached --accent value (used by mono color scheme).
+  if(typeof _monoColorCache !== 'undefined') _monoColorCache = null;
   if(showInfo) updateCanvasInfo();
   render();
   saveAppState();
