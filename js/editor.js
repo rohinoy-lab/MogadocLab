@@ -37,7 +37,10 @@ function formatMOLFromMol(mol){
 }
 function formatPDBFromMol(mol){
   const title=(mol.name||'Molecule').slice(0,60).toUpperCase();
-  let out=`HEADER    EXPORTED BY MOGADOCLAB         (c) Kanchan Sarkar\nTITLE     ${title}\n`;
+  // PDB convention: HEADER is for classification only. Free-text attribution
+  // goes in REMARK 999 (custom-info remark slot). ASCII-only for compatibility
+  // with strict PDB parsers.
+  let out=`HEADER    EXPORTED BY MOGADOCLAB\nREMARK 999 (c) 2026 K. SARKAR & A. GROSS\nREMARK 999 INSTITUT FUER THEORETISCHE CHEMIE, UNIVERSITAET ULM\nTITLE     ${title}\n`;
   const counters={};
   mol.atoms.forEach((a,i)=>{
     const s=a.symbol;
