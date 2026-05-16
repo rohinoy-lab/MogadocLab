@@ -130,6 +130,12 @@ const ELEMENTS_DEFAULT = {
 // Live element colors (user can customize; deep-cloned from defaults)
 let ELEMENTS = JSON.parse(JSON.stringify(ELEMENTS_DEFAULT));
 
+// Per-element size scale (multiplied into render radius). Default 1.0 for every
+// element; setElementSize() and resetElementSize() mutate this map. Read with
+// `elementSizeScale[sym] ?? 1` so missing entries fall back to natural size.
+let elementSizeScale = {};
+function getElementSizeScale(sym){ return elementSizeScale[sym] ?? 1; }
+
 // Saved color presets
 const COLOR_PRESETS = {
   cpk: null, // filled at runtime from defaults
@@ -163,7 +169,9 @@ function buildColorEditorList() {
       (el.cat||'').toLowerCase().includes(filter)
     )
     .sort((a,b)=>a[1].z-b[1].z);
-  container.innerHTML = entries.map(([sym,el])=>`
+  container.innerHTML = entries.map(([sym,el])=>{
+    const scale = getElementSizeScale(sym);
+    return `
     <div class="ce-row" id="ce-row-${sym}">
       <div class="ce-dot" id="ce-dot-${sym}" style="background:${el.color};box-shadow:0 0 6px ${el.color}44;"></div>
       <span class="ce-sym">${sym}</span>
@@ -171,9 +179,38 @@ function buildColorEditorList() {
       <span class="ce-cat ce-cat-${(el.cat||'').replace(/[^a-z]/g,'')}">${el.cat||''}</span>
       <input type="color" class="ce-colorpick" value="${el.color.length===7?el.color:rgbToHex(el.color)}" onchange="setElementColor('${sym}',this.value)" title="Pick color for ${el.name}">
       <input type="text" class="ce-colortext" value="${el.color}" maxlength="9" onchange="setElementColor('${sym}',this.value)" title="Hex color" spellcheck="false">
-      <button class="ce-reset-btn" onclick="resetElementColor('${sym}')" title="Reset to CPK default">↺</button>
-    </div>
-  `).join('');
+      <input type="range" class="ce-sizerange" min="0.3" max="3" step="0.05" value="${scale}" oninput="setElementSize('${sym}',this.value)" title="Size multiplier for ${el.name} (default 1×)">
+      <span class="ce-sizeval" id="ce-sizeval-${sym}">${(+scale).toFixed(2)}×</span>
+      <button class="ce-reset-btn" onclick="resetElement('${sym}')" title="Reset color &amp; size to CPK default">↺</button>
+    </div>`;
+  }).join('');
+}
+function setElementSize(sym, value){
+  const v = Math.max(0.1, Math.min(5, parseFloat(value) || 1));
+  if(Math.abs(v - 1) < 0.005) delete elementSizeScale[sym];
+  else elementSizeScale[sym] = v;
+  const lbl = document.getElementById('ce-sizeval-'+sym);
+  if(lbl) lbl.textContent = v.toFixed(2) + '×';
+  render();
+}
+function resetElementSize(sym){
+  delete elementSizeScale[sym];
+  const range = document.querySelector(`#ce-row-${sym} .ce-sizerange`);
+  if(range) range.value = 1;
+  const lbl = document.getElementById('ce-sizeval-'+sym);
+  if(lbl) lbl.textContent = '1.00×';
+  render();
+}
+function resetAllSizes(){
+  elementSizeScale = {};
+  buildColorEditorList();
+  render();
+  notify('All atom sizes reset to default','success');
+}
+// Reset both color and size for one element (used by row reset button).
+function resetElement(sym){
+  resetElementColor(sym);
+  resetElementSize(sym);
 }
 function setElementColor(sym, hex) {
   hex = hex.trim();

@@ -315,10 +315,10 @@ function computeProjectedBounds(width, height, localZoom, localPanX, localPanY, 
     const z=p[2]*scale;
     const d=orthographic ? 1 : (500/(500+z+400));
     let baseR; const el=getElement(a.symbol);
-    if(viewMode==='spacefill') baseR=el.r*90*atomScale*d;
+    if(viewMode==='spacefill') baseR=el.r*(getElementSizeScale(a.symbol))*90*atomScale*d;
     else if(viewMode==='wireframe'||viewMode==='stick') baseR=0;
     else if(viewMode==='cartoon') baseR=(el.symbol==='C'?6:4)*atomScale*d;
-    else baseR=el.r*40*atomScale*d;
+    else baseR=el.r*(getElementSizeScale(a.symbol))*40*atomScale*d;
     const sx=cx + p[0]*scale*d + localPanX;
     const sy=cy - p[1]*scale*d + localPanY;
     minX=Math.min(minX,sx-baseR); maxX=Math.max(maxX,sx+baseR);
@@ -419,10 +419,10 @@ function projectForSvg(atom, W, H, exportState, orthographic){
 }
 function getSvgAtomRadius(atom, projectedPoint, atomScale){
   const el=getElement(atom.symbol);
-  if(viewMode==='spacefill') return el.r*90*atomScale*projectedPoint.d;
+  if(viewMode==='spacefill') return el.r*(getElementSizeScale(atom.symbol))*90*atomScale*projectedPoint.d;
   if(viewMode==='wireframe'||viewMode==='stick') return 0;
   if(viewMode==='cartoon') return (el.symbol==='C'?6:4)*atomScale*projectedPoint.d;
-  return el.r*40*atomScale*projectedPoint.d;
+  return el.r*(getElementSizeScale(atom.symbol))*40*atomScale*projectedPoint.d;
 }
 function computeSvgGeometryBounds(exportState,cfg,W,H){
   if(!molecule?.atoms?.length) return null;

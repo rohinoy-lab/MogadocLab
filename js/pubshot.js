@@ -279,10 +279,10 @@ function computeCompactView(canvasDims, pad, overlayH, scaleBarH, attribH, legen
 
 function getExportAtomRadius(atom, atomScale, d){
   const el=getElement(atom.symbol);
-  if(viewMode==='spacefill') return el.r*90*atomScale*d;
+  if(viewMode==='spacefill') return el.r*(getElementSizeScale(atom.symbol))*90*atomScale*d;
   if(viewMode==='wireframe'||viewMode==='stick') return 8*Math.max(0.7,d);
   if(viewMode==='cartoon') return (el.symbol==='C'?6:4)*atomScale*d;
-  return el.r*40*atomScale*d;
+  return el.r*(getElementSizeScale(atom.symbol))*40*atomScale*d;
 }
 
 function measureExportBounds(targetCanvas, zoomGuess, orthographic){

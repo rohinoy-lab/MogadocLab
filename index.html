@@ -851,8 +851,8 @@ H  0.000 -0.757 -0.468"></textarea>
   <div class="ce-dialog">
     <div class="ce-header">
       <div>
-        <div class="ce-title">🎨 Atom Color Editor</div>
-        <div class="ce-subtitle">ALL 118 ELEMENTS · CPK STANDARD · FULLY CUSTOMIZABLE</div>
+        <div class="ce-title">🎨 Atom Color &amp; Size Editor</div>
+        <div class="ce-subtitle">ALL 118 ELEMENTS · COLOR + RADIUS SCALING · PER-ELEMENT</div>
       </div>
       <button class="btn" onclick="closeColorEditor()">✕ Close</button>
     </div>
@@ -869,7 +869,8 @@ H  0.000 -0.757 -0.468"></textarea>
         <input type="file" accept=".json" style="display:none" onchange="importElementColors(event)">
       </label>
       <button class="btn btn-sm" onclick="exportElementColors()" title="Export current colors as JSON">⬇ Export</button>
-      <button class="btn btn-sm danger" onclick="resetAllColors()" title="Reset all to CPK">↺ Reset All</button>
+      <button class="btn btn-sm danger" onclick="resetAllColors()" title="Reset all to CPK">↺ Colors</button>
+      <button class="btn btn-sm danger" onclick="resetAllSizes()" title="Reset all sizes to 1×">↺ Sizes</button>
     </div>
     <div class="ce-list-header">
       <span></span>
@@ -878,6 +879,8 @@ H  0.000 -0.757 -0.468"></textarea>
       <span>Category</span>
       <span>Pick</span>
       <span>Hex</span>
+      <span>Size</span>
+      <span>×</span>
       <span></span>
     </div>
     <div class="ce-body">

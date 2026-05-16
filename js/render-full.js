@@ -191,10 +191,10 @@ function _renderFull(){
     // On light/transparent backgrounds boost base alpha so atoms stay fully opaque
     if(window._pubshotLightBg) alpha=Math.max(alpha, 0.92);
     let baseR;
-    if     (viewMode==='spacefill') baseR=el.r*90*atomScale*pi.d;
+    if     (viewMode==='spacefill') baseR=el.r*(getElementSizeScale(a.symbol))*90*atomScale*pi.d;
     else if(viewMode==='wireframe'||viewMode==='stick') baseR=0;
     else if(viewMode==='cartoon')   baseR=el.symbol==='C'?6*atomScale*pi.d*_dpr:4*atomScale*pi.d*_dpr;
-    else                            baseR=el.r*40*atomScale*pi.d;
+    else                            baseR=el.r*(getElementSizeScale(a.symbol))*40*atomScale*pi.d;
     a._screenX=pi.sx; a._screenY=pi.sy; a._screenR=baseR;
     const displayColor=getAtomDisplayColor(a);
     if(baseR<0.5){

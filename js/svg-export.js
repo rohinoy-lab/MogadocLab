@@ -28,7 +28,7 @@ function generateSVG(){
     const el=getElement(a.symbol);
     const fov=500, d=fov/(fov+a._proj[2]*scale+400);
     const sx=cx+a._proj[0]*scale*d, sy=cy-a._proj[1]*scale*d;
-    const r=Math.max(4,el.r*30*atomScale*d);
+    const r=Math.max(4,el.r*(getElementSizeScale(a.symbol))*30*atomScale*d);
     svg+=`  <circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r.toFixed(1)}" fill="${getAtomDisplayColor(a)}" stroke="#fff" stroke-width="0.5" filter="url(#glow)"/>\n`;
     if(r>6) svg+=`  <text x="${sx.toFixed(1)}" y="${(sy+r*0.32).toFixed(1)}" text-anchor="middle" font-family="monospace" font-size="${Math.max(8,r*0.7).toFixed(0)}" font-weight="bold" fill="#fff">${a.symbol}</text>\n`;
   });
