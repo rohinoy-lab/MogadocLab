@@ -250,6 +250,10 @@ function toggleSidebar(){
     tog.textContent='›';
     tog.title='Expand sidebar';
   }
+  // Snap pan to zero so repeated toggles can't visually drift the molecule
+  // off-center — panX/panY are absolute device pixels and don't auto-track
+  // canvas resizes.
+  panX = 0; panY = 0;
   setTimeout(resizeCanvas,280);
   saveAppState();
 }
@@ -291,7 +295,11 @@ function applyResponsiveSidebarDefaults(){
   }
   updateSidebarToggleUI();
 }
-function toggleEditor(){document.getElementById('editorPanel').classList.toggle('hidden');setTimeout(resizeCanvas,280);}
+function toggleEditor(){
+  document.getElementById('editorPanel').classList.toggle('hidden');
+  panX = 0; panY = 0;
+  setTimeout(resizeCanvas,280);
+}
 function toggleSection(head){head.closest('.section').classList.toggle('collapsed');}
 
 // ═══════════════════════════════════════════════════════════
