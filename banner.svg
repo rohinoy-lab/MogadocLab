@@ -8,7 +8,7 @@
     rsvg-convert -w 2400 banner.svg > banner.png
     inkscape banner.svg -o banner.png -w 2400
 -->
-<svg xmlns="http://www.w3.org/2000/svg"
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 1600 900" width="1600" height="900"
      preserveAspectRatio="xMidYMid meet">
 
@@ -42,6 +42,17 @@
             stroke="#dde3eb" stroke-width="0.5" opacity="0.55"/>
     </pattern>
   </defs>
+
+  <!-- ════════════════════════════════════════════════════════════
+       Whole banner is a single hyperlink — clicking anywhere takes
+       the user to the live viewer in a new tab. Only fires when the
+       SVG is loaded as a document (object/iframe/direct .svg URL).
+       When the SVG is embedded via <img src="…">, the surrounding
+       HTML <a> wrapper (see typo3-embed.html) carries the click.
+       ════════════════════════════════════════════════════════════ -->
+  <a href="https://rohinoy-lab.github.io/MogadocLab/"
+     xlink:href="https://rohinoy-lab.github.io/MogadocLab/"
+     target="_blank" rel="noopener">
 
   <!-- ── Paper background ─────────────────────────────────────── -->
   <rect width="1600" height="900" fill="#fbfcfd"/>
@@ -185,18 +196,19 @@
       </text>
     </g>
 
-    <!-- Access section -->
+    <!-- Call-to-action: no raw URL on display; clicking anywhere on the
+         banner (or scanning the QR) opens the live viewer. -->
     <text x="912" y="620"
           font-family="'JetBrains Mono', 'SF Mono', Consolas, monospace"
-          font-size="11" letter-spacing="3.4" fill="#7a8a9c">— ACCESS</text>
-    <text x="912" y="664"
-          font-family="'JetBrains Mono', 'SF Mono', Consolas, monospace"
-          font-size="22" fill="#1e4d8c" font-weight="500">rohinoy-lab.github.io/MogadocLab</text>
-    <line x1="912" y1="676" x2="1340" y2="676"
+          font-size="11" letter-spacing="3.4" fill="#7a8a9c">— LAUNCH</text>
+    <text x="912" y="672"
+          font-family="'Playfair Display', 'Source Serif Pro', Georgia, serif"
+          font-size="34" font-weight="700" fill="#1e4d8c">Open the viewer  →</text>
+    <line x1="912" y1="690" x2="1240" y2="690"
           stroke="#1e4d8c" stroke-width="1.2"/>
-    <text x="912" y="704"
+    <text x="912" y="718"
           font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
-          font-size="13" fill="#7a8a9c">Open the live viewer or scan the QR code on the right →</text>
+          font-size="13" fill="#7a8a9c">Click the banner or scan the QR code — opens in a new tab.</text>
 
     <!-- Real QR for https://rohinoy-lab.github.io/MogadocLab/ (v3, ECC=M, 29×29 modules) -->
     <g id="qr">
@@ -642,4 +654,5 @@
           font-family="'JetBrains Mono', 'SF Mono', Consolas, monospace"
           font-size="10" letter-spacing="2.6" fill="#7a8a9c">v 1.0</text>
   </g>
+  </a>
 </svg>
