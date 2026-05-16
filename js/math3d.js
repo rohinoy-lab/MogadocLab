@@ -10,12 +10,16 @@ function mat3Mul(A,B){return A.map((row,i)=>B[0].map((_,j)=>row.reduce((sum,_,k)
 function mat3Vec(M,v){return M.map(row=>row[0]*v[0]+row[1]*v[1]+row[2]*v[2]);}
 function project(atom,cx,cy,scale){
   const p=atom._proj,fov=500,z=p[2]*scale;
-  let d=window._pubshotOrthographic?1:(fov/(fov+z+400));
-  // Clamp perspective d: at large scales (publication exports) the denominator
-  // can go negative for atoms crossing the camera plane, producing flipped
-  // positions and negative radii (atoms disappear). Clamp to a sane range
-  // so geometry stays consistent and no atom vanishes.
-  if(!window._pubshotOrthographic) d=Math.max(0.06,Math.min(d,2.5));
+  let d;
+  if(window._pubshotOrthographic){
+    d=1;
+  } else {
+    // Soft perspective: denominator never drops below `fov`, so atoms in
+    // front of the camera plane cap smoothly at d=1 instead of exploding
+    // or flipping sign. Back atoms still shrink monotonically. No jumpy
+    // size artefacts during rotation, no clamping discontinuity.
+    d = fov / Math.max(fov, fov + z + 400);
+  }
   return{sx:cx+p[0]*scale*d+panX,sy:cy-p[1]*scale*d+panY,d,z};
 }
 function hexAlpha(hex,alpha){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${alpha})`;}

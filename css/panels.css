@@ -76,13 +76,19 @@
 #atomInspectorPanel{
   position:absolute; right:12px; top:12px;
   width:270px; max-height:min(520px, calc(100vh - var(--header-h) - 100px));
-  display:none; flex-direction:column; z-index:32;
+  display:none; flex-direction:column; z-index:95;
   background:rgba(11,18,25,0.94); border:1px solid rgba(116,142,173,0.18);
   border-radius:20px; backdrop-filter:blur(18px);
   box-shadow:0 24px 52px rgba(0,0,0,0.24);
   overflow:hidden;
 }
 #atomInspectorPanel.visible{ display:flex; }
+/* When a trajectory is loaded the player sits top-right (z-index 90).
+   Push the inspector down and bump z-index above the player. */
+.canvas-wrap:has(#trajectoryPlayer.visible) #atomInspectorPanel{
+  top: 220px;
+  max-height: min(420px, calc(100vh - var(--header-h) - 280px));
+}
 .aip-header{
   flex-shrink:0;
   display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
