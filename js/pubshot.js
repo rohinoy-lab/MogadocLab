@@ -295,9 +295,9 @@ function measureExportBounds(targetCanvas, zoomGuess, orthographic){
   let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
   for(const atom of molecule.atoms){
     const proj=mat3Vec(M,[atom.x,atom.y,atom.z]);
-    const fov=500;
+    /* fov / eye now centralised in projectD() */
     const z=proj[2]*scale;
-    const d=orthographic ? 1 : (fov/(fov+z+400));
+    const d=projectD(z, orthographic);
     const sx=cx + proj[0]*scale*d;
     const sy=cy - proj[1]*scale*d;
     const r=Math.max(4, getExportAtomRadius(atom, atomScale, d));

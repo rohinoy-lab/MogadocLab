@@ -5,11 +5,14 @@
 // INTERACTION
 // ═══════════════════════════════════════════════════════════
 let dragging=false,dragButton=0,lastMX=0,lastMY=0,dragMoved=false;
-canvas.addEventListener('mousedown',e=>{dragging=true;dragMoved=false;dragButton=e.button;lastMX=e.clientX;lastMY=e.clientY;e.preventDefault();});
+let dragOriginX=0,dragOriginY=0;
+canvas.addEventListener('mousedown',e=>{dragging=true;dragMoved=false;dragButton=e.button;lastMX=e.clientX;lastMY=e.clientY;dragOriginX=e.clientX;dragOriginY=e.clientY;e.preventDefault();});
 canvas.addEventListener('mousemove',e=>{
   if(dragging){
     const dx=e.clientX-lastMX,dy=e.clientY-lastMY;
-    if(Math.abs(dx)>2||Math.abs(dy)>2) dragMoved=true;
+    // Cumulative-distance drag detection — a real drag will move several
+    // pixels total before mouseup. Per-event jitter no longer trips this.
+    if(Math.hypot(e.clientX-dragOriginX, e.clientY-dragOriginY) > 6) dragMoved=true;
     if(dragButton===2||e.ctrlKey){panX+=dx*devicePixelRatio;panY+=dy*devicePixelRatio;}
     else{rotY+=dx*0.012;rotX+=dy*0.012;}
     lastMX=e.clientX;lastMY=e.clientY;if(!autoRotate)render();
@@ -63,7 +66,7 @@ function handleHover(e) {
   const rect=canvas.getBoundingClientRect(),mx=(e.clientX-rect.left)*devicePixelRatio,my=(e.clientY-rect.top)*devicePixelRatio;
   const tooltip=document.getElementById('tooltip');
   let hit=null,minD=Infinity;
-  molecule.atoms.forEach(a=>{if(a._screenX===undefined)return;const dx=mx-a._screenX,dy=my-a._screenY,d=Math.sqrt(dx*dx+dy*dy);if(d<(a._screenR||12)+6&&d<minD){minD=d;hit=a;}});
+  molecule.atoms.forEach(a=>{if(a._screenX===undefined)return;const dx=mx-a._screenX,dy=my-a._screenY,d=Math.sqrt(dx*dx+dy*dy);if(d<Math.max(18,(a._screenR||0)+10)&&d<minD){minD=d;hit=a;}});
   if(hit){
     const el=getElement(hit.symbol),bc=molecule.bonds.filter(b=>b.a===hit.idx||b.b===hit.idx).length;
     document.getElementById('ttSym').textContent=hit.symbol;document.getElementById('ttSym').style.color=el.color;

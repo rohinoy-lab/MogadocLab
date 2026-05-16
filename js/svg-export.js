@@ -17,8 +17,7 @@ function generateSVG(){
   // Bonds
   molecule.bonds.forEach(bond=>{
     const ai=molecule.atoms[bond.a],aj=molecule.atoms[bond.b]; if(!ai||!aj)return;
-    const fov=500;
-    const di=fov/(fov+ai._proj[2]*scale+400), dj=fov/(fov+aj._proj[2]*scale+400);
+    const di=projectD(ai._proj[2]*scale, false), dj=projectD(aj._proj[2]*scale, false);
     const x1=cx+ai._proj[0]*scale*di, y1=cy-ai._proj[1]*scale*di;
     const x2=cx+aj._proj[0]*scale*dj, y2=cy-aj._proj[1]*scale*dj;
     svg+=`  <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#667" stroke-width="2" stroke-linecap="round"/>\n`;
@@ -26,7 +25,7 @@ function generateSVG(){
   // Atoms
   sorted.forEach(a=>{
     const el=getElement(a.symbol);
-    const fov=500, d=fov/(fov+a._proj[2]*scale+400);
+    const d=projectD(a._proj[2]*scale, false);
     const sx=cx+a._proj[0]*scale*d, sy=cy-a._proj[1]*scale*d;
     const r=Math.max(4,el.r*(getElementSizeScale(a.symbol))*30*atomScale*d);
     svg+=`  <circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${r.toFixed(1)}" fill="${getAtomDisplayColor(a)}" stroke="#fff" stroke-width="0.5" filter="url(#glow)"/>\n`;

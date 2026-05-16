@@ -313,7 +313,7 @@ function computeProjectedBounds(width, height, localZoom, localPanX, localPanY, 
   molecule.atoms.forEach(a=>{
     const p=mat3Vec(M,[a.x,a.y,a.z]);
     const z=p[2]*scale;
-    const d=orthographic ? 1 : (500/(500+z+400));
+    const d=projectD(z, orthographic);
     let baseR; const el=getElement(a.symbol);
     if(viewMode==='spacefill') baseR=el.r*(getElementSizeScale(a.symbol))*90*atomScale*d;
     else if(viewMode==='wireframe'||viewMode==='stick') baseR=0;
@@ -414,7 +414,7 @@ function projectForSvg(atom, W, H, exportState, orthographic){
   const scale=molecule.scale*exportState.zoom*_dpr;
   const p=mat3Vec(M,[atom.x,atom.y,atom.z]);
   const z=p[2]*scale;
-  const d=orthographic ? 1 : (500/(500+z+400));
+  const d=projectD(z, orthographic);
   return {sx:W/2 + p[0]*scale*d + exportState.panX, sy:H/2 - p[1]*scale*d + exportState.panY, d, z, p};
 }
 function getSvgAtomRadius(atom, projectedPoint, atomScale){

@@ -254,7 +254,7 @@ function pickBondFromMouseEvent(e){
     const t=Math.max(0,Math.min(1,((mx-a._screenX)*dx+(my-a._screenY)*dy)/len2));
     const px=a._screenX+t*dx, py=a._screenY+t*dy;
     const dist=Math.hypot(mx-px,my-py);
-    if(dist<12*devicePixelRatio && dist<bestD){
+    if(dist<14 && dist<bestD){
       bestD=dist;
       best=idx;
     }
@@ -385,7 +385,7 @@ function pickAtomFromMouseEvent(e){
     if(isAtomHidden(a.idx)) return;
     if(a._screenX===undefined) return;
     const dx=mx-a._screenX,dy=my-a._screenY,d=Math.sqrt(dx*dx+dy*dy);
-    if(d<(a._screenR||12)+8&&d<minD){minD=d;hit=a;}
+    if(d<Math.max(18,(a._screenR||0)+10)&&d<minD){minD=d;hit=a;}
   });
   return hit;
 }
