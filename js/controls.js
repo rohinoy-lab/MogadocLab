@@ -250,11 +250,15 @@ function toggleSidebar(){
     tog.textContent='›';
     tog.title='Expand sidebar';
   }
-  // Snap pan to zero so repeated toggles can't visually drift the molecule
-  // off-center — panX/panY are absolute device pixels and don't auto-track
-  // canvas resizes.
-  panX = 0; panY = 0;
-  setTimeout(resizeCanvas,280);
+  // Snap pan to zero AND refit the molecule's intrinsic scale to the new
+  // canvas dimensions after the sidebar transition completes. Without the
+  // refit, molecule.scale stays at its load-time value and the molecule
+  // visually drifts/clips on every toggle.
+  setTimeout(() => {
+    panX = 0; panY = 0;
+    refitMoleculeToCanvas();
+    resizeCanvas();
+  }, 280);
   saveAppState();
 }
 function normalizeSidebarState({forceDesktopVisible=false}={}){
@@ -297,8 +301,11 @@ function applyResponsiveSidebarDefaults(){
 }
 function toggleEditor(){
   document.getElementById('editorPanel').classList.toggle('hidden');
-  panX = 0; panY = 0;
-  setTimeout(resizeCanvas,280);
+  setTimeout(() => {
+    panX = 0; panY = 0;
+    refitMoleculeToCanvas();
+    resizeCanvas();
+  }, 280);
 }
 function toggleSection(head){head.closest('.section').classList.toggle('collapsed');}
 

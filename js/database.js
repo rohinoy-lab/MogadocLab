@@ -113,8 +113,11 @@ function toggleDatabasePanel(ev){
     sb.classList.remove('super-expanded');
     if(btn) btn.textContent = '⤡ Compact';
   }
-  panX = 0; panY = 0;
-  setTimeout(resizeCanvas, 280);
+  setTimeout(() => {
+    panX = 0; panY = 0;
+    refitMoleculeToCanvas();
+    resizeCanvas();
+  }, 280);
   saveAppState();
 }
 function updateDatabaseUI(){
