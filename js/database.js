@@ -83,7 +83,7 @@ function getDatabaseCatalog(){
   };
 }
 function getSelectedDatabase(){
-  return document.querySelector('#dbChipRow .db-chip.active')?.dataset.db || 'mogadoc';
+  return document.querySelector('#dbChipRow .db-chip.active')?.dataset.db || 'pubchem';
 }
 function getDatabaseQuery(){
   const q=(document.getElementById('dbSearchInput')?.value || molecule?.name || '').trim();

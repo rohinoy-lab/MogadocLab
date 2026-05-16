@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="journal">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,9 +39,9 @@
   </div>
   <div class="header-right">
     <div class="theme-switcher" title="Switch theme">
-      <div class="theme-dot active" data-t="dark"    onclick="setTheme('dark')"    title="Lab Dark"></div>
+      <div class="theme-dot"        data-t="dark"    onclick="setTheme('dark')"    title="Lab Dark"></div>
       <div class="theme-dot"        data-t="arctic"  onclick="setTheme('arctic')"  title="Arctic"></div>
-      <div class="theme-dot"        data-t="journal" onclick="setTheme('journal')" title="Journal"></div>
+      <div class="theme-dot active" data-t="journal" onclick="setTheme('journal')" title="Journal"></div>
       <div class="theme-dot"        data-t="neon"    onclick="setTheme('neon')"    title="Neon"></div>
       <div class="theme-dot"        data-t="forest"  onclick="setTheme('forest')"  title="Forest"></div>
     </div>
@@ -97,8 +97,8 @@
             <button class="btn btn-sm db-search-expand" id="dbExpandBtn" onclick="toggleDatabasePanel(event)">⤢ Expand</button>
           </div>
           <div class="db-chip-row" id="dbChipRow">
-            <button class="db-chip db-chip-primary active" data-db="mogadoc" onclick="selectDatabase('mogadoc')" title="Ulm University MOGADOC — gas-phase structure database (login required)">⬡ MOGADOC <span class="db-chip-tag">ULM</span></button>
-            <button class="db-chip" data-db="pubchem" onclick="selectDatabase('pubchem')">PubChem</button>
+            <button class="db-chip db-chip-primary" data-db="mogadoc" onclick="selectDatabase('mogadoc')" title="Ulm University MOGADOC — gas-phase structure database (login required)">⬡ MOGADOC <span class="db-chip-tag">ULM</span></button>
+            <button class="db-chip active" data-db="pubchem" onclick="selectDatabase('pubchem')">PubChem</button>
             <button class="db-chip" data-db="chembl" onclick="selectDatabase('chembl')">ChEMBL</button>
             <button class="db-chip" data-db="chemspider" onclick="selectDatabase('chemspider')">ChemSpider</button>
             <button class="db-chip" data-db="zinc" onclick="selectDatabase('zinc')">ZINC</button>
