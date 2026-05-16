@@ -39,6 +39,12 @@ canvas:active { cursor: grabbing; }
     radial-gradient(circle at 50% 40%, rgba(255,255,255,0.03) 0%, transparent 34%),
     #000;
 }
+.canvas-wrap[data-bg="white"] {
+  background: #ffffff;
+}
+.canvas-wrap[data-bg="cream"] {
+  background: #f5f0e8;
+}
 .canvas-wrap::after{
   content: "";
   position: absolute;
@@ -49,6 +55,9 @@ canvas:active { cursor: grabbing; }
   opacity: 0.88;
   z-index: 0;
 }
+/* Dark vignette is wrong on light backgrounds — suppress. */
+.canvas-wrap[data-bg="white"]::after,
+.canvas-wrap[data-bg="cream"]::after { opacity: 0; }
 canvas,
 .empty-state,
 .hud,

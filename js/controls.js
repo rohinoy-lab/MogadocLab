@@ -85,9 +85,18 @@ function updateDisplay(){
   rotSpeedVal=parseFloat(document.getElementById('rotSpeed').value);
   if(!autoRotate)render();
 }
+function isLightCanvasBg(bg, theme){
+  if(bg === 'white' || bg === 'cream') return true;
+  if(bg === 'dark') return false;
+  // grid / plain / gradient inherit the theme's --bg lightness
+  return theme === 'arctic' || theme === 'journal';
+}
 function setBg(bg){
   document.getElementById('canvasArea').setAttribute('data-bg',bg);
   document.querySelectorAll('.bg-swatch').forEach(s=>s.classList.toggle('active',s.dataset.bg===bg));
+  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  window._pubshotLightBg = isLightCanvasBg(bg, theme);
+  render();
   if(showInfo) updateCanvasInfo();
   saveAppState();
 }
@@ -220,6 +229,9 @@ function drawBondLegends(){
 function setTheme(t){
   document.documentElement.setAttribute('data-theme',t==='dark'?'':t);
   document.querySelectorAll('.theme-dot').forEach(d=>d.classList.toggle('active',d.dataset.t===t));
+  // Recompute light-bg flag — grid/plain/gradient bgs follow theme lightness.
+  const bg = document.getElementById('canvasArea')?.getAttribute('data-bg') || 'grid';
+  window._pubshotLightBg = isLightCanvasBg(bg, t);
   if(showInfo) updateCanvasInfo();
   render();
   saveAppState();

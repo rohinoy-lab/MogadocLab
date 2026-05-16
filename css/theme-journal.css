@@ -339,25 +339,9 @@ html[data-theme="journal"] .ce-toolbar {
   border: 1px solid var(--border);
 }
 
-/* ─── Canvas backgrounds: stay dark on journal so the
-       molecule renders correctly. The chrome is the
-       journal page; the canvas is the figure. ─────────── */
-html[data-theme="journal"] .canvas-wrap[data-bg="grid"] {
-  background: #0a1320;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255,255,255,0.012), transparent 26%, transparent 82%, rgba(255,255,255,0.010));
-  background-size: 40px 40px, 40px 40px, 100% 100%;
-}
-html[data-theme="journal"] .canvas-wrap[data-bg="gradient"] {
-  background:
-    radial-gradient(ellipse at 50% 40%, #182438 0%, transparent 62%),
-    linear-gradient(180deg, #182438 0%, #0a1320 82%);
-}
-html[data-theme="journal"] .canvas-wrap[data-bg="plain"] {
-  background: linear-gradient(180deg, #0d1626 0%, #08111d 100%);
-}
+/* On journal theme the canvas-bg swatches use the journal variables
+   (paper tones), so grid/plain/gradient become naturally light. The
+   dark and white swatches stay literal. The dark vignette is muted. */
 html[data-theme="journal"] .canvas-wrap[data-bg="dark"] { background: #000; }
 html[data-theme="journal"] .canvas-wrap::after { opacity: 0.35; }
 
