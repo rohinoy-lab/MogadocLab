@@ -66,7 +66,7 @@ function handleHover(e) {
   const rect=canvas.getBoundingClientRect(),mx=(e.clientX-rect.left)*devicePixelRatio,my=(e.clientY-rect.top)*devicePixelRatio;
   const tooltip=document.getElementById('tooltip');
   let hit=null,minD=Infinity;
-  molecule.atoms.forEach(a=>{if(a._screenX===undefined)return;const dx=mx-a._screenX,dy=my-a._screenY,d=Math.sqrt(dx*dx+dy*dy);if(d<Math.max(18,(a._screenR||0)+10)&&d<minD){minD=d;hit=a;}});
+  molecule.atoms.forEach(a=>{if(a._screenX===undefined)return;const dx=mx-a._screenX,dy=my-a._screenY,d=Math.sqrt(dx*dx+dy*dy);if(d<Math.max(20,(a._screenR||0)+14)&&d<minD){minD=d;hit=a;}});
   if(hit){
     const el=getElement(hit.symbol),bc=molecule.bonds.filter(b=>b.a===hit.idx||b.b===hit.idx).length;
     document.getElementById('ttSym').textContent=hit.symbol;document.getElementById('ttSym').style.color=el.color;

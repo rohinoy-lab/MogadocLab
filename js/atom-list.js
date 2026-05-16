@@ -385,7 +385,7 @@ function pickAtomFromMouseEvent(e){
     if(isAtomHidden(a.idx)) return;
     if(a._screenX===undefined) return;
     const dx=mx-a._screenX,dy=my-a._screenY,d=Math.sqrt(dx*dx+dy*dy);
-    if(d<Math.max(18,(a._screenR||0)+10)&&d<minD){minD=d;hit=a;}
+    if(d<Math.max(20,(a._screenR||0)+14)&&d<minD){minD=d;hit=a;}
   });
   return hit;
 }
