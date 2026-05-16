@@ -2,6 +2,15 @@
 <!--
   MogadocLab banner — narrow, double-bordered, 720 × 1120.
   Classic frame: outer 4 px navy + 10 px gap + 1 px inner hairline.
+
+  Typography: Playfair Display / DM Sans / JetBrains Mono are listed first
+  in the font-family chains, but this SVG does NOT embed those webfonts
+  (would inflate the file by ~100 KB). When the banner is loaded via
+  <img src="banner.svg"> the SVG runs sandboxed and cannot reach external
+  fonts. On a visitor's machine the chain falls through to the next
+  available system serif/sans/mono — typically Georgia, Helvetica/Arial,
+  Consolas/Courier. The design is tuned to look acceptable with those
+  fallbacks; treat the Playfair render as a "nice if available" upgrade.
   Vertical bands, no overlap:
      90–200   title / subtitle / rule
     220–275   body

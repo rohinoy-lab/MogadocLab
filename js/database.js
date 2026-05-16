@@ -113,10 +113,11 @@ function toggleDatabasePanel(ev){
     sb.classList.remove('super-expanded');
     if(btn) btn.textContent = '⤡ Compact';
   }
+  const was = (typeof _pauseAutoRotateForTransition==='function') ? _pauseAutoRotateForTransition() : false;
   setTimeout(() => {
-    panX = 0; panY = 0;
-    refitMoleculeToCanvas();
-    resizeCanvas();
+    if(typeof _settlePanelTransition==='function') _settlePanelTransition();
+    else { panX=0; panY=0; refitMoleculeToCanvas(); resizeCanvas(); }
+    if(typeof _resumeAutoRotateAfterTransition==='function') _resumeAutoRotateAfterTransition(was);
   }, 280);
   saveAppState();
 }

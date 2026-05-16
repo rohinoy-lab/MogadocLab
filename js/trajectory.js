@@ -485,7 +485,7 @@ function renderToCanvas(ctx, w, h) {
     const sx = cx + (a._proj[0] + panX) * scale;
     const sy = cy + (a._proj[1] + panY) * scale;
     const fogF = maxZ > 0 ? 1 - fog * (a._proj[2] / maxZ) * 0.5 : 1;
-    const r = (el.radius || 1) * atomScale * scale * 0.015;
+    const r = (el.r || 1) * (typeof getElementSizeScale==='function' ? getElementSizeScale(a.symbol) : 1) * atomScale * scale * 0.015;
     ctx.globalAlpha = Math.max(0.2, fogF);
     if (glow > 0) {
       ctx.shadowColor = el.color; ctx.shadowBlur = r * glow * 2;

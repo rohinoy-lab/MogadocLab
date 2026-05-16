@@ -26,12 +26,26 @@ function loadStructureText(inputName, text, options = {}) {
 // Recomputes the scale so the molecule fills ~64% of the shorter canvas
 // axis. Used after sidebar/editor/database panel toggles so the molecule
 // adapts to the new canvas size instead of drifting at its old scale.
+// Re-center atoms around their mass-weighted COM. Floating-point drift
+// across many edits/transitions can move the COM off origin; this resets it.
+function recenterMolecule(atoms){
+  if(!atoms?.length) return;
+  let cx=0,cy=0,cz=0,M=0;
+  atoms.forEach(a=>{
+    const m = (typeof getElement==='function' ? getElement(a.symbol).mass : 1) || 1;
+    cx+=a.x*m; cy+=a.y*m; cz+=a.z*m; M+=m;
+  });
+  if(M<=0) return;
+  cx/=M; cy/=M; cz/=M;
+  atoms.forEach(a=>{a.x-=cx;a.y-=cy;a.z-=cz;});
+}
 function refitMoleculeToCanvas(){
   const minDim = Math.min(canvas?.clientWidth || 800, canvas?.clientHeight || 600);
   // Trajectory mode: all frames share trajGlobalScale; refit and propagate.
   if(typeof trajectoryFrames !== 'undefined' && trajectoryFrames.length){
     let globalMaxR = 0;
     trajectoryFrames.forEach(f => {
+      recenterMolecule(f.atoms);
       f.atoms.forEach(a => {
         const r = Math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
         if(r > globalMaxR) globalMaxR = r;
@@ -43,6 +57,7 @@ function refitMoleculeToCanvas(){
     return;
   }
   if(!molecule || !molecule.atoms || !molecule.atoms.length) return;
+  recenterMolecule(molecule.atoms);
   let maxR = 0;
   molecule.atoms.forEach(a => {
     const r = Math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
@@ -57,9 +72,16 @@ function loadMolecule(name, mol) {
   if(typeof clearTrajectory==='function' && trajectoryFrames?.length){
     clearTrajectory();
   }
-  let cx=0,cy=0,cz=0;
-  mol.atoms.forEach(a=>{cx+=a.x;cy+=a.y;cz+=a.z;});
-  cx/=mol.atoms.length;cy/=mol.atoms.length;cz/=mol.atoms.length;
+  // Mass-weighted center-of-mass — for asymmetric molecules with heavy
+  // atoms on one side the geometric mean would put the rotation pivot
+  // away from the visual centroid and the molecule would wobble during
+  // auto-rotate. Use mass weights so the pivot is the actual COM.
+  let cx=0,cy=0,cz=0, totalMass=0;
+  mol.atoms.forEach(a=>{
+    const m = (typeof getElement==='function' ? getElement(a.symbol).mass : 1) || 1;
+    cx += a.x*m; cy += a.y*m; cz += a.z*m; totalMass += m;
+  });
+  if(totalMass > 0){ cx/=totalMass; cy/=totalMass; cz/=totalMass; }
   mol.atoms.forEach(a=>{a.x-=cx;a.y-=cy;a.z-=cz;});
   let maxR=0;mol.atoms.forEach(a=>{const r=Math.sqrt(a.x*a.x+a.y*a.y+a.z*a.z);if(r>maxR)maxR=r;});
   const minCanvasDim=Math.min(canvas?.clientWidth||800, canvas?.clientHeight||600);

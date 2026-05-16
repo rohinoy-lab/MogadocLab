@@ -236,6 +236,29 @@ function setTheme(t){
   render();
   saveAppState();
 }
+// Pause / resume helpers for the 280 ms transition window. Without these,
+// auto-rotate keeps accumulating rotation across the wait, which the user
+// reads as "molecule drifted after toggle".
+function _pauseAutoRotateForTransition(){
+  const was = autoRotate;
+  if(was){
+    autoRotate = false;
+    if(animFrame){ cancelAnimationFrame(animFrame); animFrame = null; }
+  }
+  return was;
+}
+function _resumeAutoRotateAfterTransition(was){
+  if(!was) return;
+  autoRotate = true;
+  rotEaseVel = 0;
+  lastTime = performance.now();
+  animFrame = requestAnimationFrame(animate);
+}
+function _settlePanelTransition(){
+  panX = 0; panY = 0;
+  refitMoleculeToCanvas();
+  resizeCanvas();
+}
 function toggleSidebar(){
   const sb=document.getElementById('sidebar'),tog=document.getElementById('sidebarToggle');
   if(sb.classList.contains('collapsed')){
@@ -250,14 +273,10 @@ function toggleSidebar(){
     tog.textContent='›';
     tog.title='Expand sidebar';
   }
-  // Snap pan to zero AND refit the molecule's intrinsic scale to the new
-  // canvas dimensions after the sidebar transition completes. Without the
-  // refit, molecule.scale stays at its load-time value and the molecule
-  // visually drifts/clips on every toggle.
+  const was = _pauseAutoRotateForTransition();
   setTimeout(() => {
-    panX = 0; panY = 0;
-    refitMoleculeToCanvas();
-    resizeCanvas();
+    _settlePanelTransition();
+    _resumeAutoRotateAfterTransition(was);
   }, 280);
   saveAppState();
 }
@@ -301,10 +320,10 @@ function applyResponsiveSidebarDefaults(){
 }
 function toggleEditor(){
   document.getElementById('editorPanel').classList.toggle('hidden');
+  const was = _pauseAutoRotateForTransition();
   setTimeout(() => {
-    panX = 0; panY = 0;
-    refitMoleculeToCanvas();
-    resizeCanvas();
+    _settlePanelTransition();
+    _resumeAutoRotateAfterTransition(was);
   }, 280);
 }
 function toggleSection(head){head.closest('.section').classList.toggle('collapsed');}
