@@ -236,6 +236,37 @@ canvas,
   width: 24px;
 }
 
+/* Mobile: the sidebar becomes a position:fixed overlay (z-index 50).
+   The toggle has to escape its canvas-wrap parent and ride on the
+   sidebar's right edge with a higher z-index, otherwise it gets
+   trapped under the open drawer and there's no way to close it. */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    position: fixed;
+    top: 50%;
+    left: min(280px, 85vw);
+    transform: translateY(-50%);
+    width: 30px;
+    height: 64px;
+    z-index: 60;
+    font-size: 13px;
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    box-shadow: 4px 0 12px rgba(0,0,0,0.25);
+    transition: left 0.25s var(--ease-out), background 0.2s, width 0.2s;
+  }
+  .sidebar-toggle:hover {
+    width: 34px;
+    background: var(--accent);
+    color: #ffffff;
+  }
+  /* When the sidebar is collapsed, the toggle sits at the left edge. */
+  .sidebar.collapsed ~ .canvas-wrap .sidebar-toggle {
+    left: 0;
+  }
+}
+
 /* ─── Tooltip ───────────────────────────────────────── */
 #tooltip {
   position: fixed;
