@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Pubshot — MOGADOCLab Quantum Structure Studio
+   Pubshot — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // PUBLICATION SCREENSHOT MODAL

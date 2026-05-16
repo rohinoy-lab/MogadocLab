@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Snapshots — MOGADOCLab Quantum Structure Studio
+   Snapshots — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // FEATURE 4 — SNAPSHOT / VIEW BOOKMARKS

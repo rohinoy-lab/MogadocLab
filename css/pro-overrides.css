@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════════════
-   Premium Pro Visual Overrides — MOGADOCLab Quantum Structure Studio
+   Visual overrides — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 :root{
-  --premium-shadow: 0 18px 36px rgba(0,0,0,.18);
-  --premium-shadow-soft: 0 8px 20px rgba(0,0,0,.12);
-  --premium-ring: 0 0 0 1px rgba(255,255,255,.028) inset;
-  --premium-panel: rgba(16,25,35,.96);
-  --premium-panel-soft: rgba(18,28,39,.90);
+  --panel-shadow: 0 18px 36px rgba(0,0,0,.18);
+  --panel-shadow-soft: 0 8px 20px rgba(0,0,0,.12);
+  --panel-ring: 0 0 0 1px rgba(255,255,255,.028) inset;
+  --panel-bg: rgba(16,25,35,.96);
+  --panel-bg-soft: rgba(18,28,39,.90);
 }
 body{
   background:
@@ -45,7 +45,7 @@ header::after{
 .mol-badge{
   background:rgba(11,18,26,.76);
   border-color:rgba(122,148,179,.16);
-  box-shadow:var(--premium-ring);
+  box-shadow:var(--panel-ring);
 }
 .header-right{gap:8px;}
 .sidebar,
@@ -57,8 +57,8 @@ header::after{
   margin:0 0 14px;
   border:1px solid rgba(116,142,173,.13);
   border-radius:14px;
-  background:var(--premium-panel);
-  box-shadow:var(--premium-ring), var(--premium-shadow-soft);
+  background:var(--panel-bg);
+  box-shadow:var(--panel-ring), var(--panel-shadow-soft);
 }
 .section:last-child{margin-bottom:0;}
 .section-head{margin-bottom:14px;}
@@ -94,7 +94,7 @@ textarea.raw-editor,
   padding:7px 12px;
   background:rgba(25,36,48,.94);
   border-color:rgba(116,142,173,.16);
-  box-shadow:var(--premium-ring);
+  box-shadow:var(--panel-ring);
 }
 .btn:hover,
 .demo-btn:hover,
@@ -129,7 +129,7 @@ select.ps-sel,
 select.format-sel{
   background:rgba(10,17,25,.88);
   border-color:rgba(116,142,173,.14);
-  box-shadow:var(--premium-ring);
+  box-shadow:var(--panel-ring);
 }
 .search-input:focus,
 textarea.raw-editor:focus,
@@ -161,7 +161,7 @@ input.ps-text:focus{
 #measurePanel{
   background:rgba(12,19,27,.90);
   border-color:rgba(116,142,173,.14);
-  box-shadow:var(--premium-shadow-soft);
+  box-shadow:var(--panel-shadow-soft);
 }
 [data-theme="arctic"] .hud-chip,
 [data-theme="arctic"] .canvas-info,
@@ -193,7 +193,7 @@ input.ps-text:focus{
 .editor-meta{background:rgba(15,24,34,.78);}
 .empty-title{font-size:22px; color:#eef4fb;}
 .empty-sub{max-width:480px; color:#aabdcf;}
-.file-drop{padding:20px 18px; background:var(--premium-panel-soft);}
+.file-drop{padding:20px 18px; background:var(--panel-bg-soft);}
 .db-search-toolbar{margin-bottom:14px;}
 .db-search-kicker{color:#9adbf7;}
 .db-chip{background:rgba(18,27,38,.78); border-color:rgba(116,142,173,.16);}
@@ -208,28 +208,7 @@ textarea:focus-visible,
   outline:none;
   box-shadow:0 0 0 3px rgba(92,200,255,.14);
 }
-#premiumStatusRail{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-left:6px;
-  flex-wrap:wrap;
-}
-.premium-chip{
-  padding:4px 9px;
-  border-radius:999px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:#a3bbd5;
-  border:1px solid rgba(116,142,173,.16);
-  background:rgba(10,17,25,.56);
-  box-shadow:var(--premium-ring);
-}
-.premium-chip strong{color:var(--accent); font-weight:600;}
 @media (max-width: 1200px){
-  #premiumStatusRail{display:none;}
   .sidebar-scroll{padding:8px;}
 }
 @media (max-width: 920px){
@@ -246,7 +225,6 @@ textarea:focus-visible,
   .mol-badge { max-width:100%; font-size:10px; }
   .header-right { order:1; margin-left:auto; }
   .header-right .btn { padding:5px 8px; font-size:9px; }
-  #premiumStatusRail { display:none !important; }
   .sidebar { position:fixed; left:0; top:0; bottom:0; z-index:50;
     width:min(280px,85vw) !important; box-shadow:8px 0 30px rgba(0,0,0,0.5); }
   .sidebar.collapsed { width:0 !important; box-shadow:none; }

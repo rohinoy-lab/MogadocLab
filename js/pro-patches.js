@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Pro Patches — MOGADOCLab Quantum Structure Studio
+   Pro Patches — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 (function(){
@@ -166,9 +166,13 @@
   async function robustSearchResearchDatabases(){
     const q=currentQuery();
     if(!q) return notify('Enter a compound, target, ligand, structure, or formula keyword','error');
-    if(typeof setDbResults === 'function') setDbResults('Inspecting Chemical &amp; Molecular, Structural / 3D, and Quantum / Materials sources…');
+    if(typeof setDbResults === 'function') setDbResults('Inspecting MOGADOC plus Chemical &amp; Molecular, Structural / 3D, and Quantum / Materials sources…');
     const sections=[];
     const add=(title,badge,body,links)=>sections.push(`<div class="db-result-item"><div class="db-result-top"><div><div class="db-result-title">${title}</div><div>${body}</div></div><span class="db-badge">${badge}</span></div><div class="db-result-links">${links}</div></div>`);
+
+    add(`MOGADOC lookup for ${esc(q)}`,'Gas-phase · Ulm',
+      'Ulm University MOGADOC database — gas-phase structure data (microwave, electron diffraction, IR/Raman). Login required.',
+      `<a class="db-link" href="${getDatabaseSearchUrl('mogadoc',q)}" target="_blank" rel="noopener noreferrer">Open MOGADOC login</a><a class="db-link" href="https://www.uni-ulm.de/nawi/chemieinformationssysteme/mogadoc/" target="_blank" rel="noopener noreferrer">About MOGADOC</a>`);
 
     const tasks = [
       (async()=>{
@@ -229,14 +233,7 @@
   }
   function patchDynamicText(){
     const emptySub=document.querySelector('#emptyState .empty-sub');
-    if(emptySub) emptySub.textContent='Drop a structure file, sketch a molecule, paste raw output, or query a live scientific database.';
-    const wrap=document.querySelector('.mol-title-wrap');
-    if(wrap && !document.getElementById('premiumStatusRail')){
-      const rail=document.createElement('div');
-      rail.id='premiumStatusRail';
-      rail.innerHTML='<span class="premium-chip"><strong>Import</strong> multi-format</span><span class="premium-chip"><strong>Search</strong> live databases</span><span class="premium-chip"><strong>Export</strong> publication-ready</span>';
-      wrap.appendChild(rail);
-    }
+    if(emptySub) emptySub.textContent='Drop a structure file, sketch a molecule, paste raw output, or query a scientific database.';
   }
   const originalRenderImportDetails = window.renderImportDetails;
   window.renderImportDetails = function(meta){
@@ -371,4 +368,3 @@
     attachDropInterceptors();
   }
 })();
-</script>

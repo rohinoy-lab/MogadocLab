@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOGADOCLab Quantum Structure Studio — Professional Molecular Viewer</title>
+  <meta name="author" content="Kanchan Sarkar">
+  <meta name="copyright" content="© 2026 Kanchan Sarkar">
+  <meta name="description" content="MogadocLab — 3D molecular viewer with multi-format import and image export.">
+  <title>MogadocLab — 3D Molecular Viewer</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,13 +24,14 @@
   <link rel="stylesheet" href="css/trajectory.css">
   <link rel="stylesheet" href="css/pubshot.css">
   <link rel="stylesheet" href="css/pro-overrides.css">
+  <link rel="stylesheet" href="css/theme-journal.css">
 </head>
 <body>
 
 <header>
   <div class="logo">
     <div class="logo-icon">⬡</div>
-    MOGADOCLab <sub>Q-View Pro</sub>
+    MogadocLab <sub>© Kanchan Sarkar</sub>
   </div>
   <div class="mol-title-wrap">
     <div class="mol-badge" id="moleculeName">No structure loaded</div>
@@ -35,10 +39,11 @@
   </div>
   <div class="header-right">
     <div class="theme-switcher" title="Switch theme">
-      <div class="theme-dot active" data-t="dark"   onclick="setTheme('dark')"   title="Lab Dark"></div>
-      <div class="theme-dot"        data-t="arctic" onclick="setTheme('arctic')" title="Arctic"></div>
-      <div class="theme-dot"        data-t="neon"   onclick="setTheme('neon')"   title="Neon"></div>
-      <div class="theme-dot"        data-t="forest" onclick="setTheme('forest')" title="Forest"></div>
+      <div class="theme-dot active" data-t="dark"    onclick="setTheme('dark')"    title="Lab Dark"></div>
+      <div class="theme-dot"        data-t="arctic"  onclick="setTheme('arctic')"  title="Arctic"></div>
+      <div class="theme-dot"        data-t="journal" onclick="setTheme('journal')" title="Journal"></div>
+      <div class="theme-dot"        data-t="neon"    onclick="setTheme('neon')"    title="Neon"></div>
+      <div class="theme-dot"        data-t="forest"  onclick="setTheme('forest')"  title="Forest"></div>
     </div>
     <button class="btn" onclick="toggleShortcutHelp()" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)">?</button>
     <button class="btn" onclick="toggleEditor()" aria-label="Toggle raw editor">≡ Editor</button>
@@ -87,12 +92,13 @@
           <div class="db-search-toolbar">
             <div class="db-search-heading">
               <div class="db-search-kicker">Search &amp; import</div>
-              <div class="db-search-subtext" id="dbSearchHint">Professional search and import across molecular, structural, and quantum-materials resources.</div>
+              <div class="db-search-subtext" id="dbSearchHint">Search and import across molecular, structural, and quantum-materials sources.</div>
             </div>
             <button class="btn btn-sm db-search-expand" id="dbExpandBtn" onclick="toggleDatabasePanel(event)">⤢ Expand</button>
           </div>
           <div class="db-chip-row" id="dbChipRow">
-            <button class="db-chip active" data-db="pubchem" onclick="selectDatabase('pubchem')">PubChem</button>
+            <button class="db-chip db-chip-primary active" data-db="mogadoc" onclick="selectDatabase('mogadoc')" title="Ulm University MOGADOC — gas-phase structure database (login required)">⬡ MOGADOC <span class="db-chip-tag">ULM</span></button>
+            <button class="db-chip" data-db="pubchem" onclick="selectDatabase('pubchem')">PubChem</button>
             <button class="db-chip" data-db="chembl" onclick="selectDatabase('chembl')">ChEMBL</button>
             <button class="db-chip" data-db="chemspider" onclick="selectDatabase('chemspider')">ChemSpider</button>
             <button class="db-chip" data-db="zinc" onclick="selectDatabase('zinc')">ZINC</button>
@@ -102,16 +108,6 @@
             <button class="db-chip" data-db="nomad" onclick="selectDatabase('nomad')">NOMAD</button>
           </div>
           <div class="db-search-bar enhanced">
-            <select class="ps-sel" id="dbSelect" onchange="updateDatabaseUI()">
-              <option value="pubchem">PubChem</option>
-              <option value="chembl">ChEMBL</option>
-              <option value="chemspider">ChemSpider</option>
-              <option value="zinc">ZINC</option>
-              <option value="rcsb">Protein Data Bank</option>
-              <option value="csd">Cambridge Structural Database</option>
-              <option value="materialsproject">Materials Project</option>
-              <option value="nomad">NOMAD</option>
-            </select>
             <div class="db-search-main">
               <input class="search-input" id="dbSearchInput" type="text" placeholder="aspirin, glucose, caffeine, CID…" onkeydown="if(event.key==='Enter')handleDatabaseSearch()">
               <div class="db-search-examples" id="dbSearchExamples">Examples: aspirin · glucose · caffeine · CID 2244</div>
@@ -125,41 +121,7 @@
             <button class="btn" onclick="openSelectedDatabaseSearch()">Open selected search</button>
             <button class="btn" onclick="openSelectedDatabaseHomepage()">Open selected home</button>
           </div>
-          <div class="db-grid" id="dbGridCards">
-            <button class="db-card" data-db="pubchem" onclick="selectDatabase('pubchem')">
-              <span class="db-card-title">PubChem</span>
-              <span class="db-card-meta">Chemical &amp; molecular · small molecules · direct 3D load</span>
-            </button>
-            <button class="db-card" data-db="chembl" onclick="selectDatabase('chembl')">
-              <span class="db-card-title">ChEMBL</span>
-              <span class="db-card-meta">Chemical &amp; molecular · bioactivity · targets</span>
-            </button>
-            <button class="db-card" data-db="chemspider" onclick="selectDatabase('chemspider')">
-              <span class="db-card-title">ChemSpider</span>
-              <span class="db-card-meta">Chemical &amp; molecular · identifiers · synonyms</span>
-            </button>
-            <button class="db-card" data-db="zinc" onclick="selectDatabase('zinc')">
-              <span class="db-card-title">ZINC</span>
-              <span class="db-card-meta">Chemical &amp; molecular · screening ligands</span>
-            </button>
-            <button class="db-card" data-db="rcsb" onclick="selectDatabase('rcsb')">
-              <span class="db-card-title">Protein Data Bank</span>
-              <span class="db-card-meta">Structural / 3D · biomolecular structures · direct import</span>
-            </button>
-            <button class="db-card" data-db="csd" onclick="selectDatabase('csd')">
-              <span class="db-card-title">CSD</span>
-              <span class="db-card-meta">Structural / 3D · crystal structures</span>
-            </button>
-            <button class="db-card" data-db="materialsproject" onclick="selectDatabase('materialsproject')">
-              <span class="db-card-title">Materials Project</span>
-              <span class="db-card-meta">Quantum / materials · computed materials and molecules</span>
-            </button>
-            <button class="db-card" data-db="nomad" onclick="selectDatabase('nomad')">
-              <span class="db-card-title">NOMAD</span>
-              <span class="db-card-meta">Quantum / materials · FAIR materials data</span>
-            </button>
-          </div>
-          <div class="db-results" id="dbResults">Select a source, search it directly, or use All to inspect Chemical &amp; Molecular, Structural / 3D, and Quantum / Materials resources in one place.</div>
+          <div class="db-results" id="dbResults">Pick a source above, search it, or hit All to query Chemical, Structural, and Quantum / Materials resources at once.</div>
           </div>
         </div>
       </div>
@@ -484,6 +446,8 @@
       <button class="btn btn-sm" onclick="openDrawModal()" title="Draw molecule from scratch" style="border-color:var(--accent2);color:var(--accent2);">✏ Draw</button>
     </div>
 
+    <div class="canvas-attribution">© 2026 Kanchan Sarkar · MogadocLab</div>
+
     <div id="tooltip">
       <div class="tt-sym" id="ttSym"></div>
       <div class="tt-name" id="ttName"></div>
@@ -517,7 +481,7 @@
           <div class="aip-kicker">Atom Inspector</div>
           <div class="aip-title" id="aipTitle">No atom selected</div>
         </div>
-        <button class="btn btn-sm" onclick="clearSelection()" title="Clear selection">✕</button>
+        <button class="btn btn-sm" onclick="toggleInspector(false)" title="Close inspector (D)">✕</button>
       </div>
       <div class="aip-body" id="aipBody">
         <div class="aip-empty">
@@ -925,7 +889,7 @@ H  0.000 -0.757 -0.468"></textarea>
   </div>
 </div>
 
-<!-- ── DRAW MOLECULE MODAL — PREMIUM ──────────────────────── -->
+<!-- ── DRAW MOLECULE MODAL ─────────────────────────────────── -->
 <div id="drawModal" tabindex="-1" onclick="if(event.target===this)closeDrawModal()">
   <div class="dm-dialog" onclick="event.stopPropagation()">
 

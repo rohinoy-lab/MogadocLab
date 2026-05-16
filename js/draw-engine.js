@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Draw Engine — MOGADOCLab Quantum Structure Studio
+   Draw Engine — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // DRAW MOLECULE ENGINE
@@ -672,7 +672,7 @@ function dmUpdateStats(){
   const legEl=document.getElementById('dmStats');
   if(legEl) legEl.innerHTML=`Atoms: ${dmAtoms.length}<br>Bonds: ${dmBonds.length}<br>Formula: ${formula||'—'}`;
 
-  // Premium stat boxes
+  // Stat boxes
   const sa=document.getElementById('dmStatAtoms');
   const sb=document.getElementById('dmStatBonds');
   if(sa) sa.textContent=dmAtoms.length;

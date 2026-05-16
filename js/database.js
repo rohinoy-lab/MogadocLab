@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Database — MOGADOCLab Quantum Structure Studio
+   Database — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // DEMO MOLECULES (Quick Load)
@@ -71,6 +71,7 @@ function setDbResults(html){
 
 function getDatabaseCatalog(){
   return {
+    mogadoc:{label:'MOGADOC', category:'Gas-phase / structural', home:'https://www.uni-ulm.de/nawi/chemieinformationssysteme/mogadoc/', search:_=>`https://www.uni-ulm.de/nawi/chemieinformationssysteme/mogadoc/login-nur-fuer-uni-ulm/`, placeholder:'(login at the MOGADOC site, then query there)', load3d:false, examples:'gas-phase microwave · electron diffraction · structural docs', loginNote:'Requires Uni-Ulm login. Open MOGADOC, search there, then drop the downloaded structure file here.'},
     pubchem:{label:'PubChem', category:'Chemical & molecular', home:'https://pubchem.ncbi.nlm.nih.gov/', search:q=>`https://pubchem.ncbi.nlm.nih.gov/#query=${encodeURIComponent(q)}`, placeholder:'aspirin, glucose, caffeine, CID…', load3d:true, examples:'aspirin · glucose · caffeine · CID 2244'},
     chembl:{label:'ChEMBL', category:'Chemical & molecular', home:'https://www.ebi.ac.uk/chembl/', search:q=>`https://www.ebi.ac.uk/chembl/g/#search_results/all/query=${encodeURIComponent(q)}`, placeholder:'bioactive molecule, CHEMBL ID, target…', examples:'CHEMBL25 · imatinib · EGFR inhibitor'},
     chemspider:{label:'ChemSpider', category:'Chemical & molecular', home:'https://www.chemspider.com/', search:q=>`https://www.chemspider.com/Search.aspx?q=${encodeURIComponent(q)}`, placeholder:'compound name, InChIKey, formula…', examples:'benzaldehyde · C7H6O · InChIKey'},
@@ -82,7 +83,7 @@ function getDatabaseCatalog(){
   };
 }
 function getSelectedDatabase(){
-  return document.getElementById('dbSelect')?.value || 'pubchem';
+  return document.querySelector('#dbChipRow .db-chip.active')?.dataset.db || 'mogadoc';
 }
 function getDatabaseQuery(){
   const q=(document.getElementById('dbSearchInput')?.value || molecule?.name || '').trim();
@@ -91,8 +92,9 @@ function getDatabaseQuery(){
 function dbEsc(s){return String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]||m));}
 function openExternal(url){window.open(url,'_blank','noopener,noreferrer');}
 function selectDatabase(db){
-  const sel=document.getElementById('dbSelect');
-  if(sel) sel.value=db;
+  document.querySelectorAll('#dbChipRow .db-chip').forEach(chip=>{
+    chip.classList.toggle('active', chip.dataset.db===db);
+  });
   updateDatabaseUI();
 }
 function toggleDatabasePanel(ev){
@@ -121,7 +123,10 @@ function updateDatabaseUI(){
   const hint=document.getElementById('dbSearchHint');
   const examples=document.getElementById('dbSearchExamples');
   if(input) input.placeholder=meta.placeholder;
-  if(hint) hint.textContent = meta.load3d ? `${meta.label} supports direct in-viewer loading from this panel.` : `${meta.label} uses a tuned search handoff from this panel.`;
+  if(hint) hint.textContent =
+    meta.loginNote ? meta.loginNote :
+    meta.load3d   ? `${meta.label} supports direct in-viewer loading from this panel.`
+                  : `${meta.label} uses a tuned search handoff from this panel.`;
   if(examples) examples.textContent = `Examples: ${meta.examples || 'aspirin · glucose · caffeine · CID 2244'}`;
   const loadBtn=document.getElementById('dbLoad3dBtn');
   if(loadBtn){
@@ -130,11 +135,6 @@ function updateDatabaseUI(){
     loadBtn.textContent = meta.load3d ? (db==='rcsb' ? 'Load structure' : 'Load 3D') : 'Load unavailable';
     loadBtn.title=meta.load3d ? `Load from ${meta.label} into viewer` : `${meta.label} does not provide direct in-viewer import here`;
   }
-  document.querySelectorAll('#dbGridCards .db-card').forEach(card=>{
-    const active = card.dataset.db===db;
-    card.classList.toggle('active', active);
-    card.style.outline = active ? '2px solid var(--accent)' : 'none';
-  });
   document.querySelectorAll('#dbChipRow .db-chip').forEach(chip=>{
     chip.classList.toggle('active', chip.dataset.db===db);
   });
@@ -158,6 +158,7 @@ function handleDatabaseSearch(){
   const db=getSelectedDatabase();
   if(db==='pubchem') return searchPubChem();
   if(db==='rcsb') return searchPDB();
+  if(db==='mogadoc') return openExternal(getDatabaseSearchUrl(db,''));
   return openSelectedDatabaseSearch();
 }
 function loadSelectedDatabaseIntoViewer(){
@@ -235,9 +236,12 @@ async function searchPDB(){
 async function searchResearchDatabases(){
   const q=getDatabaseQuery();
   if(!q)return notify('Enter a compound, target, ligand, structure, or formula keyword','error');
-  setDbResults('Inspecting Chemical &amp; Molecular, Structural / 3D, and Quantum / Materials sources…');
+  setDbResults('Inspecting MOGADOC plus Chemical &amp; Molecular, Structural / 3D, and Quantum / Materials sources…');
   const sections=[];
   const addSection=(title,badge,body,links)=>sections.push(`<div class="db-result-item"><div class="db-result-top"><div><div class="db-result-title">${title}</div><div>${body}</div></div><span class="db-badge">${badge}</span></div><div class="db-result-links">${links}</div></div>`);
+  addSection(`MOGADOC lookup for ${dbEsc(q)}`,'Gas-phase · Ulm',
+    'Ulm University MOGADOC database — gas-phase structure data (microwave, electron diffraction, IR/Raman). Login required.',
+    `<a class="db-link" href="${getDatabaseSearchUrl('mogadoc',q)}" target="_blank" rel="noopener noreferrer">Open MOGADOC login</a><a class="db-link" href="https://www.uni-ulm.de/nawi/chemieinformationssysteme/mogadoc/" target="_blank" rel="noopener noreferrer">About MOGADOC</a>`);
   try{
     const cidRes=await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(q)}/cids/JSON`);
     if(cidRes.ok){
@@ -273,7 +277,7 @@ async function searchResearchDatabases(){
   }catch(_){ }
   addSection(`ChemSpider search for ${dbEsc(q)}`,'Chemical & molecular','Royal Society of Chemistry index for names, identifiers, and linked sources.',
     `<a class="db-link" href="${getDatabaseSearchUrl('chemspider',q)}" target="_blank" rel="noopener noreferrer">Open ChemSpider</a>`);
-  addSection(`ZINC search for ${dbEsc(q)}`,'Chemical & molecular','Useful for purchasable ligands and screening libraries, because every workflow apparently needs one more database.',
+  addSection(`ZINC search for ${dbEsc(q)}`,'Chemical & molecular','Purchasable ligands and virtual screening libraries.',
     `<a class="db-link" href="${getDatabaseSearchUrl('zinc',q)}" target="_blank" rel="noopener noreferrer">Open ZINC</a>`);
   try{
     const pdbQuery={query:{type:'terminal',service:'text',parameters:{attribute:'struct.title',operator:'contains_phrase',value:q}},return_type:'entry',request_options:{pager:{start:0,rows:1}}};

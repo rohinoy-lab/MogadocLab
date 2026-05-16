@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Svg Export — MOGADOCLab Quantum Structure Studio
+   Svg Export — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // SVG EXPORT

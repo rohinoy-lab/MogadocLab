@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Stats — MOGADOCLab Quantum Structure Studio
+   Stats — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // STATS & LEGEND

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Interaction — MOGADOCLab Quantum Structure Studio
+   Interaction — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // INTERACTION

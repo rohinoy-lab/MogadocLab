@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════
-   Editor, Measurement & Feature Panels — MOGADOCLab Quantum Structure Studio
+   Editor, Measurement & Feature Panels — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
-/* ─── PI GRADE EDITOR ENHANCEMENTS ───────────────────── */
+/* ─── EDITOR ENHANCEMENTS                   ───────────────────── */
 .editor-tools{
   padding:8px 14px; border-bottom:1px solid var(--border);
   display:flex; flex-wrap:wrap; gap:5px; background:var(--surface2); flex-shrink:0;
@@ -41,7 +41,7 @@
 
 /* ─── ATOM LIST PANEL ────────────────────────────────── */
 #atomListPanel {
-  position:absolute; top:12px; right:12px;
+  position:absolute; bottom:64px; right:12px;
   background:rgba(11,18,25,0.92); border:1px solid rgba(116,142,173,0.18);
   backdrop-filter:blur(18px); border-radius:18px;
   width:220px; max-height:360px; display:none; z-index:30;
@@ -60,7 +60,7 @@
   padding:6px 12px; outline:none; width:100%; flex-shrink:0;
 }
 .alp-search::placeholder { color:var(--text-muted); }
-.alp-list { overflow-y:auto; flex:1; }
+.alp-list { overflow-y:auto; flex:1 1 auto; min-height:0; }
 .alp-row {
   display:flex; align-items:center; gap:7px; padding:5px 10px;
   font-size:10px; cursor:pointer; transition:background 0.1s; border-bottom:1px solid rgba(255,255,255,0.03);
@@ -74,8 +74,8 @@
 
 /* ─── ATOM INSPECTOR ───────────────────────────────── */
 #atomInspectorPanel{
-  position:absolute; right:12px; bottom:64px;
-  width:270px; max-height:min(420px, calc(100% - 96px));
+  position:absolute; right:12px; top:12px;
+  width:270px; max-height:min(520px, calc(100vh - var(--header-h) - 100px));
   display:none; flex-direction:column; z-index:32;
   background:rgba(11,18,25,0.94); border:1px solid rgba(116,142,173,0.18);
   border-radius:20px; backdrop-filter:blur(18px);
@@ -84,6 +84,7 @@
 }
 #atomInspectorPanel.visible{ display:flex; }
 .aip-header{
+  flex-shrink:0;
   display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
   padding:12px 12px 10px; border-bottom:1px solid var(--border);
   background:linear-gradient(180deg, rgba(92,200,255,0.10), rgba(92,200,255,0.03));
@@ -96,6 +97,7 @@
   font-size:14px; font-weight:700; color:var(--text); line-height:1.2;
 }
 .aip-body{
+  flex:1 1 auto; min-height:0;
   padding:12px; overflow:auto; display:flex; flex-direction:column; gap:10px;
 }
 .aip-empty{
@@ -153,15 +155,18 @@
   font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--accent);
 }
 .aip-actions{
-  display:grid; grid-template-columns:1fr 1fr; gap:6px;
+  flex-shrink:0;
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;
   padding:10px 12px 12px; border-top:1px solid var(--border); background:rgba(14,22,31,0.82);
 }
+#atomInspectorPanel.is-empty .aip-actions{ display:none; }
+#atomInspectorPanel.is-empty .aip-body{ padding:14px 14px 18px; }
 @media (max-width: 1100px){
   #atomInspectorPanel{ width:250px; }
 }
 @media (max-width: 760px){
   #atomInspectorPanel{
-    right:10px; left:10px; width:auto; bottom:72px; max-height:46vh;
+    right:10px; left:10px; width:auto; top:10px; bottom:auto; max-height:46vh;
   }
 }
 
@@ -228,7 +233,7 @@
 .db-search-kicker{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-family:'JetBrains Mono',monospace;}
 .db-search-subtext{font-size:8.8px;line-height:1.4;color:var(--text-dim);}
 .db-search-expand{min-width:98px; white-space:nowrap;}
-.db-search-bar.enhanced{display:grid;grid-template-columns:minmax(124px,160px) minmax(0,1fr) auto auto;gap:6px;align-items:stretch;min-width:0;width:100%;}
+.db-search-bar.enhanced{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:stretch;min-width:0;width:100%;}
 .db-search-main{display:flex;flex-direction:column;gap:4px;min-width:0;width:100%;}
 .db-search-main .search-input{width:100%;min-width:0;font-size:11px;padding:9px 10px;}
 .db-search-examples{font-size:8px;line-height:1.35;color:var(--text-dim);white-space:normal;overflow-wrap:anywhere;}
@@ -236,13 +241,16 @@
 .db-chip{border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);padding:5px 8px;border-radius:999px;font-size:8px;cursor:pointer;transition:all .15s;}
 .db-chip:hover{border-color:var(--accent);color:var(--text);}
 .db-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(99,102,241,0.10);}
-.search-section.search-expanded .db-grid{grid-template-columns:1fr;}
+.db-chip-primary{font-weight:600;border-color:var(--accent);color:var(--accent);background:rgba(92,200,255,0.08);}
+.db-chip-primary.active{background:var(--accent);color:#04111c;border-color:var(--accent);}
+.db-chip-primary .db-chip-tag{display:inline-block;margin-left:5px;padding:1px 4px;border-radius:3px;background:rgba(0,0,0,0.18);font-size:7.5px;letter-spacing:1.2px;font-weight:700;vertical-align:1px;}
+.db-chip-primary.active .db-chip-tag{background:rgba(255,255,255,0.18);color:inherit;}
 .search-section.search-expanded .db-results{max-height:420px;min-height:180px;}
-.search-section.search-expanded .db-search-bar.enhanced{grid-template-columns:minmax(180px,220px) minmax(0,1fr) auto auto;min-width:0;}
-.sidebar.super-expanded .search-section.search-expanded .db-search-bar.enhanced{grid-template-columns:minmax(200px,240px) minmax(0,1fr) auto auto;min-width:0;}
+.search-section.search-expanded .db-search-bar.enhanced{grid-template-columns:minmax(0,1fr) auto auto;min-width:0;}
+.sidebar.super-expanded .search-section.search-expanded .db-search-bar.enhanced{grid-template-columns:minmax(0,1fr) auto auto;min-width:0;}
 .search-section.search-expanded .db-search-main .search-input{font-size:12px;padding:10px 11px;}
 .search-section .section-body{overflow-x:hidden;}
 .search-section .db-results{max-height:250px;overflow:auto;min-width:0;}
-@media (max-width: 1220px){.db-search-bar.enhanced{grid-template-columns:minmax(130px,160px) minmax(0,1fr) auto auto;}}
-@media (max-width: 1100px){.db-search-bar.enhanced,.search-section.search-expanded .db-search-bar.enhanced{grid-template-columns:1fr;}.db-grid{grid-template-columns:1fr;}.db-search-bar.enhanced .btn,.db-search-bar.enhanced select{width:100%;}}
+@media (max-width: 1220px){.db-search-bar.enhanced{grid-template-columns:minmax(0,1fr) auto auto;}}
+@media (max-width: 1100px){.db-search-bar.enhanced,.search-section.search-expanded .db-search-bar.enhanced{grid-template-columns:1fr;}.db-search-bar.enhanced .btn{width:100%;}}
 @media (max-width: 700px){.db-search-toolbar{flex-direction:column;align-items:flex-start;}.db-actions{flex-direction:column;}.db-actions .btn{width:100%;}}

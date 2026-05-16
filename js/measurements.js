@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Measurements — MOGADOCLab Quantum Structure Studio
+   Measurements — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // FEATURE 1 — MEASUREMENT MODE (bond length · angle · dihedral)

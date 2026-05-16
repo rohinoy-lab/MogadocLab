@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Molecule — MOGADOCLab Quantum Structure Studio
+   Molecule — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // LOAD
@@ -33,7 +33,8 @@ function loadMolecule(name, mol) {
   cx/=mol.atoms.length;cy/=mol.atoms.length;cz/=mol.atoms.length;
   mol.atoms.forEach(a=>{a.x-=cx;a.y-=cy;a.z-=cz;});
   let maxR=0;mol.atoms.forEach(a=>{const r=Math.sqrt(a.x*a.x+a.y*a.y+a.z*a.z);if(r>maxR)maxR=r;});
-  mol.scale=maxR>0?120/maxR:60; mol.name=name;
+  const minCanvasDim=Math.min(canvas?.clientWidth||800, canvas?.clientHeight||600);
+  mol.scale=maxR>0?(minCanvasDim*0.32)/maxR:60; mol.name=name;
   lastImportMeta={...(mol.meta||{}), source:mol.meta?.source||'Imported structure', format:mol.meta?.format||'unknown'};
   molecule=mol; panX=0;panY=0;zoom=1;
   if(typeof resetSelectionState==='function') resetSelectionState();

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Parsers — MOGADOCLab Quantum Structure Studio
+   Parsers — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // PARSERS
@@ -682,7 +682,7 @@ function parseQE(text, meta={}){
       let j=i+1;
       while(j<lines.length){
         const t=lines[j].trim();
-        if(!t || /^[A-Z_]+\b/.test(t) || /^K_POINTS/i.test(t) || /^CELL_PARAMETERS/i.test(t)) break;
+        if(!t || /^(ATOMIC_|CELL_|K_POINTS|OCCUPATIONS|CONSTRAINTS|HUBBARD|SOLVENTS)\b/i.test(t)) break;
         const p=t.split(/\s+/);
         if(p.length>=4 && /^[A-Za-z]/.test(p[0])){
           let x=+p[1],y=+p[2],z=+p[3];

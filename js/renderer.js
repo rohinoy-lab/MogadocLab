@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Renderer — MOGADOCLab Quantum Structure Studio
+   Renderer — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // RENDER  (full implementation below in PATCH RENDER block)

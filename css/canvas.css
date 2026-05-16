@@ -158,6 +158,18 @@ canvas,
   z-index: 10;
   max-width: calc(100vw - 28px);
 }
+.canvas-attribution{
+  position: absolute;
+  bottom: 10px;
+  left: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  color: var(--text-dim);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+}
 .toolbar::before{
   content:"";
   position:absolute;

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Color Schemes — MOGADOCLab Quantum Structure Studio
+   Color Schemes — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // FEATURE 2 — COLOR SCHEMES

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Render Full — MOGADOCLab Quantum Structure Studio
+   Render Full — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // PATCH RENDER — wire in color schemes + measurement highlights
@@ -196,8 +196,17 @@ function _renderFull(){
     else if(viewMode==='cartoon')   baseR=el.symbol==='C'?6*atomScale*pi.d*_dpr:4*atomScale*pi.d*_dpr;
     else                            baseR=el.r*40*atomScale*pi.d;
     a._screenX=pi.sx; a._screenY=pi.sy; a._screenR=baseR;
-    if(baseR<0.5)return;
     const displayColor=getAtomDisplayColor(a);
+    if(baseR<0.5){
+      // Sub-pixel atom — draw a minimum-size dot so it never disappears in
+      // exports or at extreme atom-size / perspective settings. Skip the
+      // radial gradient and glow for performance.
+      ctx.beginPath();
+      ctx.arc(pi.sx,pi.sy,Math.max(0.8,baseR),0,Math.PI*2);
+      ctx.fillStyle=hexAlpha(displayColor,Math.min(1,alpha+0.3));
+      ctx.fill();
+      return;
+    }
     // Suppress glow on light/transparent BG — glow fades to transparent black which hazes light BGs
     if(glow>0.05&&viewMode!=='wireframe'&&!window._pubshotLightBg){
       const glowR=baseR*(1.5+glow*1.5),grad=ctx.createRadialGradient(pi.sx,pi.sy,baseR*0.5,pi.sx,pi.sy,glowR);

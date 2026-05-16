@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Export — MOGADOCLab Quantum Structure Studio
+   Export — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // EXPORT

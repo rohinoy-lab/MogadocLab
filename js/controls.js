@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Controls — MOGADOCLab Quantum Structure Studio
+   Controls — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // CONTROLS

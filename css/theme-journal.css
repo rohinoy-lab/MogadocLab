@@ -1,0 +1,386 @@
+/* ═══════════════════════════════════════════════════════
+   Journal Theme — Chrome overrides
+   Activated by [data-theme="journal"] on <html>.
+   Variables come from variables.css; this file overrides
+   the hard-coded dark values in pro-overrides.css and
+   sets the typographic personality (serif accents).
+   The 3D canvas is intentionally kept dark — chrome is
+   the journal page, the canvas is the figure.
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Page background: paper white with faint cool wash ─ */
+html[data-theme="journal"],
+html[data-theme="journal"] body {
+  background:
+    radial-gradient(720px 420px at 84% -8%, rgba(30,77,140,0.025), transparent 60%),
+    linear-gradient(180deg, #fbfcfd 0%, #f4f6f9 100%);
+  color: var(--text);
+}
+html[data-theme="journal"] body::before {
+  background: linear-gradient(180deg, rgba(10,25,41,0.006), transparent 14%, transparent 86%, rgba(10,25,41,0.006));
+}
+
+/* ─── Header: hairline-bordered white bar ─────────────── */
+html[data-theme="journal"] header {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px) saturate(1.02);
+  box-shadow: 0 1px 0 rgba(10,25,41,0.06);
+  border-bottom: 1px solid var(--border);
+}
+html[data-theme="journal"] header::after {
+  background: linear-gradient(90deg, transparent, rgba(30,77,140,0.18), transparent);
+}
+
+/* ─── Logo: serif wordmark for publication feel ───────── */
+html[data-theme="journal"] .logo {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0;
+  color: var(--text);
+}
+html[data-theme="journal"] .logo sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  color: var(--text-muted);
+}
+html[data-theme="journal"] .logo-icon {
+  background: var(--surface);
+  border-color: var(--border2);
+  box-shadow: none;
+  color: var(--accent);
+}
+html[data-theme="journal"] .logo:hover .logo-icon {
+  box-shadow: 0 0 0 3px rgba(30,77,140,0.08);
+}
+
+/* ─── Mol-title chips ───────────────────────────────── */
+html[data-theme="journal"] .mol-badge {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: none;
+  color: var(--text-dim);
+}
+html[data-theme="journal"] .mol-badge.loaded {
+  color: var(--text);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(30,77,140,0.06);
+}
+html[data-theme="journal"] .mol-formula-badge {
+  color: var(--accent);
+  opacity: 0.9;
+}
+html[data-theme="journal"] .canvas-attribution {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* ─── Sidebar & editor: white pages ───────────────────── */
+html[data-theme="journal"] .sidebar,
+html[data-theme="journal"] .editor-panel {
+  background: var(--surface);
+  border-right-color: var(--border);
+}
+
+/* ─── Sidebar section cards: hairline-framed paper ────── */
+html[data-theme="journal"] .section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+html[data-theme="journal"] .section-title {
+  color: var(--text-dim);
+  letter-spacing: 2.4px;
+}
+html[data-theme="journal"] .section-title::before {
+  background: var(--accent);
+  box-shadow: none;
+}
+html[data-theme="journal"] .control-cluster {
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+html[data-theme="journal"] .cluster-title {
+  color: var(--text-muted);
+}
+
+/* ─── Buttons: clean, restrained, no neon glow ────────── */
+html[data-theme="journal"] .btn,
+html[data-theme="journal"] .light-btn,
+html[data-theme="journal"] .mode-btn,
+html[data-theme="journal"] .demo-btn,
+html[data-theme="journal"] .cs-btn,
+html[data-theme="journal"] .rotmode-btn,
+html[data-theme="journal"] .db-chip {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text-dim);
+  box-shadow: none;
+}
+html[data-theme="journal"] .btn:hover,
+html[data-theme="journal"] .light-btn:hover,
+html[data-theme="journal"] .mode-btn:hover,
+html[data-theme="journal"] .demo-btn:hover,
+html[data-theme="journal"] .cs-btn:hover,
+html[data-theme="journal"] .rotmode-btn:hover,
+html[data-theme="journal"] .db-chip:hover {
+  background: var(--surface3);
+  border-color: var(--border2);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(10,25,41,0.04);
+}
+html[data-theme="journal"] .btn.active,
+html[data-theme="journal"] .light-btn.active,
+html[data-theme="journal"] .mode-btn.active,
+html[data-theme="journal"] .cs-btn.active,
+html[data-theme="journal"] .rotmode-btn.active,
+html[data-theme="journal"] .db-chip.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: none;
+}
+html[data-theme="journal"] .btn.danger:hover {
+  border-color: var(--red);
+  color: var(--red);
+  box-shadow: 0 0 0 3px rgba(168,42,42,0.08);
+}
+
+/* ─── File drop, stat boxes, formula box ──────────────── */
+html[data-theme="journal"] .file-drop,
+html[data-theme="journal"] .stat-box,
+html[data-theme="journal"] .formula-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+html[data-theme="journal"] .stat-label,
+html[data-theme="journal"] .legend-name,
+html[data-theme="journal"] .legend-count {
+  color: var(--text-muted);
+}
+html[data-theme="journal"] .stat-value { color: var(--text); }
+
+/* ─── Database (Search & Import) panel ────────────────── */
+/* Kill the indigo wash painted across the section body. */
+html[data-theme="journal"] .search-section .section-body {
+  background: transparent;
+}
+html[data-theme="journal"] .search-section .control-cluster {
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+/* Header text: replace the hardcoded cyan kicker with journal navy. */
+html[data-theme="journal"] .db-search-kicker {
+  color: var(--accent);
+  letter-spacing: 0.16em;
+}
+html[data-theme="journal"] .db-search-subtext,
+html[data-theme="journal"] .db-search-examples {
+  color: var(--text-muted);
+}
+
+/* Search bar inputs sit on the cluster background, not floating boxes. */
+html[data-theme="journal"] .db-search-bar {
+  background: transparent;
+  border: none;
+}
+
+/* Results panes: paper-white tiles with hairline frames. */
+html[data-theme="journal"] .db-results,
+html[data-theme="journal"] .db-result-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: none;
+}
+
+/* Chip-row active state: navy pill on subtle navy tint, no neon shadow. */
+html[data-theme="journal"] .db-chip.active {
+  background: rgba(30,77,140,0.08);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: none;
+}
+/* MOGADOC primary chip: navy fill (resting), solid navy when active. */
+html[data-theme="journal"] .db-chip-primary {
+  background: rgba(30,77,140,0.08);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+html[data-theme="journal"] .db-chip-primary.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+html[data-theme="journal"] .db-chip-primary .db-chip-tag {
+  background: rgba(30,77,140,0.15);
+  color: var(--accent);
+}
+html[data-theme="journal"] .db-chip-primary.active .db-chip-tag {
+  background: rgba(255,255,255,0.20);
+  color: #ffffff;
+}
+
+/* Results pane: readable mono on white. */
+html[data-theme="journal"] .db-results {
+  color: var(--text-dim);
+}
+html[data-theme="journal"] .db-result-title { color: var(--text); }
+html[data-theme="journal"] .db-result-item {
+  border: none;
+  border-top: 1px dashed var(--border);
+  border-radius: 0;
+  padding: 10px 0;
+}
+html[data-theme="journal"] .db-result-item:first-child { border-top: none; padding-top: 0; }
+html[data-theme="journal"] .db-badge {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+html[data-theme="journal"] .db-link { color: var(--accent); }
+html[data-theme="journal"] .db-link:hover { border-bottom-color: currentColor; }
+
+/* Progress bar matches the navy accent. */
+html[data-theme="journal"] .progress-wrap {
+  background: var(--surface3);
+  border: 1px solid var(--border);
+}
+html[data-theme="journal"] .progress-fill {
+  background: var(--accent);
+}
+html[data-theme="journal"] .search-input,
+html[data-theme="journal"] select.ps-sel,
+html[data-theme="journal"] select.format-sel,
+html[data-theme="journal"] textarea.raw-editor {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+html[data-theme="journal"] .search-input::placeholder,
+html[data-theme="journal"] textarea.raw-editor::placeholder { color: var(--text-muted); }
+html[data-theme="journal"] .search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(30,77,140,0.10);
+}
+
+/* ─── Toolbar, HUD, canvas info, tooltip ──────────────── */
+html[data-theme="journal"] .toolbar {
+  background: rgba(255,255,255,0.94);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(10,25,41,0.06);
+}
+html[data-theme="journal"] .hud-chip,
+html[data-theme="journal"] .canvas-info,
+html[data-theme="journal"] #tooltip {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(10,25,41,0.04);
+}
+
+/* ─── Empty state + focus bar headings get serif ──────── */
+html[data-theme="journal"] .empty-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--text-dim);
+}
+html[data-theme="journal"] .empty-sub { color: var(--text-muted); }
+
+/* ─── Floating side panels ────────────────────────────── */
+html[data-theme="journal"] #atomListPanel,
+html[data-theme="journal"] #atomInspectorPanel,
+html[data-theme="journal"] #measurePanel,
+html[data-theme="journal"] #trajectoryPlayer,
+html[data-theme="journal"] #focusBar {
+  background: rgba(255,255,255,0.97);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: 0 8px 24px rgba(10,25,41,0.10);
+  backdrop-filter: blur(10px);
+}
+html[data-theme="journal"] .alp-header,
+html[data-theme="journal"] .aip-kicker,
+html[data-theme="journal"] .aip-label,
+html[data-theme="journal"] .aip-section-title { color: var(--text-muted); }
+html[data-theme="journal"] .aip-title { color: var(--text); }
+html[data-theme="journal"] .aip-value,
+html[data-theme="journal"] .aip-coords,
+html[data-theme="journal"] .aip-neighbor-name { color: var(--text); }
+
+/* ─── Modal sheets: bright white with hairline frame ──── */
+html[data-theme="journal"] .ps-dialog,
+html[data-theme="journal"] .dm-dialog,
+html[data-theme="journal"] .ce-dialog,
+html[data-theme="journal"] .shortcut-dialog {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 64px rgba(10,25,41,0.14);
+}
+html[data-theme="journal"] .ps-title,
+html[data-theme="journal"] .dm-title,
+html[data-theme="journal"] .ce-title,
+html[data-theme="journal"] .shortcut-dialog h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  color: var(--text);
+}
+html[data-theme="journal"] .ps-subtitle,
+html[data-theme="journal"] .dm-title-sub,
+html[data-theme="journal"] .ce-subtitle {
+  color: var(--text-muted);
+  letter-spacing: 1.6px;
+}
+html[data-theme="journal"] .ps-group,
+html[data-theme="journal"] .dm-section,
+html[data-theme="journal"] .ce-toolbar {
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+/* ─── Canvas backgrounds: stay dark on journal so the
+       molecule renders correctly. The chrome is the
+       journal page; the canvas is the figure. ─────────── */
+html[data-theme="journal"] .canvas-wrap[data-bg="grid"] {
+  background: #0a1320;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255,255,255,0.012), transparent 26%, transparent 82%, rgba(255,255,255,0.010));
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+}
+html[data-theme="journal"] .canvas-wrap[data-bg="gradient"] {
+  background:
+    radial-gradient(ellipse at 50% 40%, #182438 0%, transparent 62%),
+    linear-gradient(180deg, #182438 0%, #0a1320 82%);
+}
+html[data-theme="journal"] .canvas-wrap[data-bg="plain"] {
+  background: linear-gradient(180deg, #0d1626 0%, #08111d 100%);
+}
+html[data-theme="journal"] .canvas-wrap[data-bg="dark"] { background: #000; }
+html[data-theme="journal"] .canvas-wrap::after { opacity: 0.35; }
+
+/* ─── Snapshot strip ──────────────────────────────────── */
+html[data-theme="journal"] #snapshotStrip .snap-thumb {
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(10,25,41,0.06);
+}
+
+/* ─── Notifications ──────────────────────────────────── */
+html[data-theme="journal"] #notification {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: 0 8px 24px rgba(10,25,41,0.12);
+}
+
+/* ─── Editor chips ───────────────────────────────────── */
+html[data-theme="journal"] .editor-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+html[data-theme="journal"] .editor-chip.dirty { color: var(--accent3); }
+html[data-theme="journal"] .editor-chip.good { color: var(--green); }
+html[data-theme="journal"] .editor-chip.bad { color: var(--red); }

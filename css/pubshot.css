@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Publication Screenshot Modal — MOGADOCLab Quantum Structure Studio
+   Publication Screenshot Modal — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 #pubshotModal {
@@ -208,7 +208,7 @@ input.ps-text:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--glo
 }
 
 /* ══════════════════════════════════════════════════════════
-   DRAW MODAL — PREMIUM CHEMDRAW-GRADE REDESIGN
+   DRAW MODAL
 ══════════════════════════════════════════════════════════ */
 #drawModal {
   display:none; position:fixed; inset:0; z-index:300;
@@ -232,7 +232,7 @@ input.ps-text:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--glo
   animation:dmSlideUp 0.28s cubic-bezier(0.34,1.4,0.64,1);
 }
 
-/* ─── PREMIUM HEADER ─── */
+/* ─── HEADER ─── */
 .dm-header {
   padding:0 20px; height:54px;
   border-bottom:1px solid var(--border);
@@ -580,7 +580,7 @@ input.ps-text:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--glo
   cursor:crosshair;
 }
 
-/* Premium dot-grid background */
+/* Dot-grid background */
 .dm-canvas-wrap::before {
   content:''; position:absolute; inset:0; pointer-events:none;
   background-image:radial-gradient(circle, rgba(31,45,66,0.7) 1px, transparent 1px);

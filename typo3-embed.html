@@ -1,0 +1,89 @@
+<!--
+  ═══════════════════════════════════════════════════════════════
+  MogadocLab — TYPO3 content element snippet
+  ═══════════════════════════════════════════════════════════════
+
+  Paste the <figure>…</figure> block into a TYPO3 "HTML" content
+  element on the professor's page. All styling is inline so it
+  inherits nothing from the site's CSS and won't fight the theme.
+
+  ─────────────────────────────────────────────────────────────
+  Two ways to host the banner image:
+    A. RECOMMENDED — leave the src as-is. The browser loads
+       banner.svg straight from GitHub Pages, so the image
+       stays in sync with the deployed app and the QR always
+       matches the live URL.
+    B. If your TYPO3 instance blocks external images or you
+       want CDN performance: upload banner.svg via the File
+       List (fileadmin), then change the src below to
+       /fileadmin/path/to/banner.svg
+  ─────────────────────────────────────────────────────────────
+
+  Three variants are included below. Pick whichever fits the
+  Professor's page layout best, delete the other two.
+-->
+
+
+<!-- ── Variant 1: full-width banner with caption (recommended) ── -->
+<figure style="margin:24px 0;padding:0;max-width:1000px;">
+  <a href="https://rohinoy-lab.github.io/MogadocLab/" target="_blank" rel="noopener"
+     style="display:block;text-decoration:none;">
+    <img src="https://rohinoy-lab.github.io/MogadocLab/banner.svg"
+         alt="MogadocLab — in-browser 3D molecular viewer"
+         style="display:block;width:100%;height:auto;border:0;">
+  </a>
+  <figcaption style="font-family:Georgia,'Times New Roman',serif;font-size:15px;color:#3e5269;margin-top:14px;line-height:1.6;">
+    <strong style="color:#0a1929;">MogadocLab</strong>
+    — in-browser 3D molecular viewer with multi-format import
+    (XYZ, MOL, PDB, Gaussian, ORCA, CIF, VASP, Quantum ESPRESSO),
+    high-resolution export, and direct loading from PubChem and
+    the Protein Data Bank.
+    &nbsp;
+    <a href="https://rohinoy-lab.github.io/MogadocLab/" target="_blank" rel="noopener"
+       style="color:#1e4d8c;font-weight:600;text-decoration:none;border-bottom:1px solid #1e4d8c;padding-bottom:1px;">
+      Launch viewer →
+    </a>
+      <br><small style="color:#7a8a9c;font-family:Courier,monospace;font-size:11px;">© 2026 Kanchan Sarkar</small>
+  </figcaption>
+</figure>
+
+
+<!-- ── Variant 2: compact card with button and side-by-side QR ── -->
+<aside style="display:flex;gap:24px;align-items:center;max-width:840px;margin:24px 0;padding:20px 24px;border:1px solid #dde3eb;border-radius:8px;background:#fbfcfd;font-family:system-ui,'Helvetica Neue',Arial,sans-serif;">
+  <img src="https://rohinoy-lab.github.io/MogadocLab/qr.svg"
+       alt="QR code linking to MogadocLab"
+       width="120" height="120"
+       style="flex-shrink:0;display:block;border:0;">
+  <div style="min-width:0;">
+    <div style="font-family:Georgia,'Times New Roman',serif;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:#7a8a9c;margin-bottom:6px;">
+      Molecular viewer
+    </div>
+    <h3 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;color:#0a1929;line-height:1.2;">
+      MogadocLab
+    </h3>
+    <p style="margin:0 0 14px;font-size:14px;color:#3e5269;line-height:1.55;">
+      3D molecular viewer with multi-format import, high-resolution
+      export, and direct loading from PubChem and the Protein Data Bank.
+    </p>
+    <a href="https://rohinoy-lab.github.io/MogadocLab/" target="_blank" rel="noopener"
+       style="display:inline-block;padding:8px 18px;background:#1e4d8c;color:#ffffff;font-size:13px;font-weight:600;text-decoration:none;border-radius:4px;letter-spacing:0.3px;">
+      Launch viewer →
+    </a>
+      <br><small style="color:#7a8a9c;font-family:Courier,monospace;font-size:11px;">© 2026 Kanchan Sarkar</small>
+    &nbsp;
+    <span style="font-family:'Courier New',monospace;font-size:12px;color:#7a8a9c;">
+      rohinoy-lab.github.io/MogadocLab
+    </span>
+  </div>
+</aside>
+
+
+<!-- ── Variant 3: minimal text-only mention (footer / sidebar) ── -->
+<p style="font-family:system-ui,'Helvetica Neue',Arial,sans-serif;font-size:14px;color:#3e5269;line-height:1.6;border-left:3px solid #1e4d8c;padding:6px 0 6px 14px;margin:18px 0;">
+  <strong style="color:#0a1929;">Open tool —</strong>
+  <a href="https://rohinoy-lab.github.io/MogadocLab/" target="_blank" rel="noopener"
+     style="color:#1e4d8c;text-decoration:none;border-bottom:1px solid #1e4d8c;">
+    MogadocLab
+  </a>
+  — browser-based 3D molecular viewer. <small style="color:#7a8a9c;font-family:Courier,monospace;">© Kanchan Sarkar</small>
+</p>

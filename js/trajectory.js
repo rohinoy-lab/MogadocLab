@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Trajectory — MOGADOCLab Quantum Structure Studio
+   Trajectory — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // TRAJECTORY / MULTI-FRAME PLAYBACK
@@ -53,7 +53,8 @@ function loadTrajectory(name, frames) {
     f.atoms.forEach(a=>{const r=Math.sqrt(a.x*a.x+a.y*a.y+a.z*a.z);if(r>maxR)maxR=r;});
     if(maxR>globalMaxR) globalMaxR=maxR;
   });
-  trajGlobalScale = globalMaxR>0 ? 120/globalMaxR : 60;
+  const minCanvasDim=Math.min(canvas?.clientWidth||800, canvas?.clientHeight||600);
+  trajGlobalScale = globalMaxR>0 ? (minCanvasDim*0.32)/globalMaxR : 60;
   frames.forEach(f => { f.scale = trajGlobalScale; f.name = name; });
   // Load first frame
   trajGoToFrame(0);

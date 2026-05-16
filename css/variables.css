@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Theme Variables & Color System — MOGADOCLab Quantum Structure Studio
+   Theme Variables & Color System — MogadocLab
    Refined palette with enhanced depth & glass effects
    ═══════════════════════════════════════════════════════ */
 
@@ -94,4 +94,23 @@
   --scene-core: rgba(57,211,83,0.09);
   --scene-edge: rgba(112,192,255,0.08);
   --scene-vignette: rgba(4,8,5,0.72);
+}
+
+/* ── Journal Theme (paper-white chrome) ── */
+[data-theme="journal"] {
+  --bg:#fbfcfd; --bg2:#f4f6f9; --surface:#ffffff; --surface2:#fbfcfd; --surface3:#f4f6f9;
+  --border:#dde3eb; --border2:#c5cfdb;
+  --accent:#1e4d8c; --accent2:#0d7c66; --accent3:#8a5a1e;
+  --glow:rgba(30,77,140,0.03); --glow-strong:rgba(30,77,140,0.06);
+  --text:#0a1929; --text-dim:#3e5269; --text-muted:#7a8a9c;
+  --green:#0d7c66; --red:#a82a2a; --yellow:#a06915;
+  --bond-color:rgba(58,80,107,0.46); --grid-line:rgba(165,180,200,0.25);
+  --glass-bg:rgba(255,255,255,0.95);
+  --scene-core: rgba(30,77,140,0.02);
+  --scene-edge: rgba(13,124,102,0.02);
+  --scene-vignette: rgba(245,247,250,0.5);
+  --shadow-sm:0 1px 2px rgba(10,25,41,0.04);
+  --shadow-md:0 4px 12px rgba(10,25,41,0.06);
+  --shadow-lg:0 8px 24px rgba(10,25,41,0.08);
+  --shadow-glow:none;
 }

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Atom List — MOGADOCLab Quantum Structure Studio
+   Atom List — MogadocLab
    ═══════════════════════════════════════════════════════ */
 
 // FEATURE 3 — ATOM LIST PANEL with focus / isolate
@@ -267,10 +267,12 @@ function updateAtomInspector(){
   const title=document.getElementById('aipTitle');
   if(!panel||!body||!title) return;
   if(!molecule||((selectedAtom===null||!molecule.atoms[selectedAtom]) && (selectedBond===null||!molecule.bonds[selectedBond]))){
+    panel.classList.add('is-empty');
     title.textContent='No atom selected';
     body.innerHTML='<div class="aip-empty">Click an atom or bond in the canvas to inspect local chemistry, fragment context, and selection actions.</div>';
     return;
   }
+  panel.classList.remove('is-empty');
   if(selectedBond!==null && molecule.bonds[selectedBond]){
     const bond=molecule.bonds[selectedBond];
     const a=molecule.atoms[bond.a], b=molecule.atoms[bond.b];
